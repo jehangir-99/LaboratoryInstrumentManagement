@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Maintenance Details - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+ 
+<div>
+    <h2 class="mb-1">Maintenance Details</h2>
+
+    <p class="text-muted mb-0">
+        View maintenance record information.
+    </p>
+</div>
+
+<div class="d-flex gap-2">
+
+    <a
+        href="{% url 'maintenance:maintenance_list' %}"
+        class="btn btn-outline-secondary"
+    >
+        ← Back
+    </a>
+
+    <a
+        href="{% url 'maintenance:maintenance_update' maintenance.pk %}"
+        class="btn btn-primary"
+    >
+        Edit
+    </a>
+
+    <a
+        href="{% url 'maintenance:maintenance_delete' maintenance.pk %}"
+        class="btn btn-outline-danger"
+    >
+        Delete
+    </a>
+
+</div>
+ 
+
+</div>
+
+<!-- Instrument -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-header bg-white">
+
+    <h5 class="mb-0">
+        Instrument
+    </h5>
+
+</div>
+
+
+<div class="card-body">
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Internal Code
+            </div>
+
+            <div class="fw-semibold">
+                {{ maintenance.instrument.internal_code }}
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Designation
+            </div>
+
+            <div class="fw-semibold">
+                {{ maintenance.instrument.designation }}
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Brand
+            </div>
+
+            <div>
+                {{ maintenance.instrument.brand|default:"—" }}
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Model
+            </div>
+
+            <div>
+                {{ maintenance.instrument.model|default:"—" }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+ 
+
+</div>
+
+<!-- Maintenance Information -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-header bg-white">
+
+    <h5 class="mb-0">
+        Maintenance Information
+    </h5>
+
+</div>
+
+
+<div class="card-body">
+
+    <div class="row g-4">
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Maintenance Type
+            </div>
+
+            {% if maintenance.maintenance_type == 'preventive' %}
+
+                <span class="badge bg-success">
+                    Preventive Maintenance
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-warning text-dark">
+                    Corrective Maintenance
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Intervention Date
+            </div>
+
+            <div>
+                {{ maintenance.intervention_date|date:"d M Y" }}
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Responsible Technician
+            </div>
+
+            <div>
+                {{ maintenance.responsible_technician }}
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="text-muted small">
+                Next Maintenance Date
+            </div>
+
+            <div>
+
+                {% if maintenance.next_maintenance_date %}
+
+                    {{ maintenance.next_maintenance_date|date:"d M Y" }}
+
+                {% else %}
+
+                    <span class="text-muted">
+                        Not scheduled
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+ 
+
+</div>
+
+<!-- Maintenance Report -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-header bg-white">
+
+    <h5 class="mb-0">
+        Maintenance Report
+    </h5>
+
+</div>
+
+
+<div class="card-body">
+
+    {% if maintenance.report %}
+
+        <p class="mb-0">
+            {{ maintenance.report|linebreaksbr }}
+        </p>
+
+    {% else %}
+
+        <span class="text-muted">
+            No maintenance report provided.
+        </span>
+
+    {% endif %}
+
+</div>
+ 
+
+</div>
+
+<!-- Replaced Parts -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-header bg-white">
+
+    <h5 class="mb-0">
+        Replaced Parts
+    </h5>
+
+</div>
+
+
+<div class="card-body">
+
+    {% if maintenance.replaced_parts %}
+
+        <p class="mb-0">
+            {{ maintenance.replaced_parts|linebreaksbr }}
+        </p>
+
+    {% else %}
+
+        <span class="text-muted">
+            No parts were replaced.
+        </span>
+
+    {% endif %}
+
+</div>
+ 
+
+</div>
+
+<!-- Notes -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-header bg-white">
+
+    <h5 class="mb-0">
+        Notes
+    </h5>
+
+</div>
+
+
+<div class="card-body">
+
+    {% if maintenance.notes %}
+
+        <p class="mb-0">
+            {{ maintenance.notes|linebreaksbr }}
+        </p>
+
+    {% else %}
+
+        <span class="text-muted">
+            No additional notes.
+        </span>
+
+    {% endif %}
+
+</div>
+ 
+
+</div>
+
+<!-- Report File -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-header bg-white">
+
+    <h5 class="mb-0">
+        Maintenance Report File
+    </h5>
+
+</div>
+
+
+<div class="card-body">
+
+    {% if maintenance.report_file %}
+
+        <a
+            href="{{ maintenance.report_file.url }}"
+            target="_blank"
+            class="btn btn-outline-primary"
+        >
+            <i class="bi bi-file-earmark-text"></i>
+            View / Download Report
+        </a>
+
+    {% else %}
+
+        <span class="text-muted">
+            No report file uploaded.
+        </span>
+
+    {% endif %}
+
+</div>
+ 
+
+</div>
+
+<!-- Record Information -->
+
+<div class="card border-0 shadow-sm">
+
+ 
+<div class="card-body">
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <small class="text-muted">
+                Created
+            </small>
+
+            <div>
+                {{ maintenance.created_at|date:"d M Y, h:i A" }}
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <small class="text-muted">
+                Last Updated
+            </small>
+
+            <div>
+                {{ maintenance.updated_at|date:"d M Y, h:i A" }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+ 
+
+</div>
+
+{% endblock %}

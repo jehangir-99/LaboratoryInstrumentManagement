@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ location.name }} - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="mb-1">
+            {{ location.name }}
+        </h2>
+
+        <p class="text-muted mb-0">
+            Location details
+        </p>
+    </div>
+
+    <div class="d-flex gap-2">
+
+        <a
+            href="{% url 'locations:location_update' location.pk %}"
+            class="btn btn-outline-primary"
+        >
+            Edit
+        </a>
+
+        <a
+            href="{% url 'locations:location_delete' location.pk %}"
+            class="btn btn-outline-danger"
+        >
+            Delete
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <h5 class="mb-4">
+            Location Information
+        </h5>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="text-muted small">
+                    Location
+                </div>
+
+                <div class="fw-semibold">
+                    {{ location.name }}
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="text-muted small">
+                    Building
+                </div>
+
+                <div class="fw-semibold">
+
+                    {% if location.building %}
+                        {{ location.building }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="text-muted small">
+                    Room
+                </div>
+
+                <div class="fw-semibold">
+
+                    {% if location.room %}
+                        {{ location.room }}
+                    {% else %}
+                        —
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12">
+
+                <div class="text-muted small">
+                    Description
+                </div>
+
+                <div>
+                    {% if location.description %}
+                        {{ location.description|linebreaks }}
+                    {% else %}
+                        <span class="text-muted">
+                            No description provided.
+                        </span>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card border-0 shadow-sm">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h5 class="mb-0">
+                Instruments at this Location
+            </h5>
+
+            <span class="text-muted">
+                {{ instruments|length }}
+            </span>
+
+        </div>
+
+
+        {% if instruments %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+                            <th>Internal Code</th>
+                            <th>Designation</th>
+                            <th>Brand</th>
+                            <th>Status</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for instrument in instruments %}
+
+                        <tr>
+
+                            <td>
+                                {{ instrument.internal_code }}
+                            </td>
+
+                            <td>
+                                {{ instrument.designation }}
+                            </td>
+
+                            <td>
+                                {{ instrument.brand }}
+                            </td>
+
+                            <td>
+                                {{ instrument.get_status_display }}
+                            </td>
+
+                            <td class="text-end">
+
+                                <a
+                                    href="{% url 'instruments:instrument_detail' instrument.pk %}"
+                                    class="btn btn-sm btn-outline-primary"
+                                >
+                                    View
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <p class="text-muted mb-0">
+                No instruments are currently assigned to this location.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<div class="mt-4">
+
+    <a
+        href="{% url 'locations:location_list' %}"
+        class="btn btn-outline-secondary"
+    >
+        ← Back to Locations
+    </a>
+
+</div>
+
+{% endblock %}

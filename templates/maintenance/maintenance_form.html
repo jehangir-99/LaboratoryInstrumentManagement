@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }} - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+ 
+<div>
+    <h2 class="mb-1">{{ title }}</h2>
+
+    <p class="text-muted mb-0">
+        {% if maintenance %}
+            Update maintenance record.
+        {% else %}
+            Add a new maintenance record.
+        {% endif %}
+    </p>
+</div>
+
+<a
+    href="{% url 'maintenance:maintenance_list' %}"
+    class="btn btn-outline-secondary"
+>
+    ← Back to Maintenance
+</a>
+ 
+
+</div>
+
+<div class="card border-0 shadow-sm">
+
+ 
+<div class="card-body p-4">
+
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+
+        <!-- Instrument -->
+
+        <div class="mb-3">
+
+            <label for="{{ form.instrument.id_for_label }}" class="form-label">
+                Instrument
+            </label>
+
+            {{ form.instrument }}
+
+            {% if form.instrument.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.instrument.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <div class="row">
+
+            <!-- Maintenance Type -->
+
+            <div class="col-md-6 mb-3">
+
+                <label
+                    for="{{ form.maintenance_type.id_for_label }}"
+                    class="form-label"
+                >
+                    Maintenance Type
+                </label>
+
+                {{ form.maintenance_type }}
+
+                {% if form.maintenance_type.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ form.maintenance_type.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Intervention Date -->
+
+            <div class="col-md-6 mb-3">
+
+                <label
+                    for="{{ form.intervention_date.id_for_label }}"
+                    class="form-label"
+                >
+                    Intervention Date
+                </label>
+
+                {{ form.intervention_date }}
+
+                {% if form.intervention_date.errors %}
+                    <div class="text-danger small mt-1">
+                        {{ form.intervention_date.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Responsible Technician -->
+
+        <div class="mb-3">
+
+            <label
+                for="{{ form.responsible_technician.id_for_label }}"
+                class="form-label"
+            >
+                Responsible Technician
+            </label>
+
+            {{ form.responsible_technician }}
+
+            {% if form.responsible_technician.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.responsible_technician.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Report -->
+
+        <div class="mb-3">
+
+            <label
+                for="{{ form.report.id_for_label }}"
+                class="form-label"
+            >
+                Maintenance Report
+            </label>
+
+            {{ form.report }}
+
+            {% if form.report.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.report.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Replaced Parts -->
+
+        <div class="mb-3">
+
+            <label
+                for="{{ form.replaced_parts.id_for_label }}"
+                class="form-label"
+            >
+                Replaced Parts
+            </label>
+
+            {{ form.replaced_parts }}
+
+            {% if form.replaced_parts.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.replaced_parts.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Next Maintenance Date -->
+
+        <div class="mb-3">
+
+            <label
+                for="{{ form.next_maintenance_date.id_for_label }}"
+                class="form-label"
+            >
+                Next Maintenance Date
+            </label>
+
+            {{ form.next_maintenance_date }}
+
+            {% if form.next_maintenance_date.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.next_maintenance_date.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Notes -->
+
+        <div class="mb-3">
+
+            <label
+                for="{{ form.notes.id_for_label }}"
+                class="form-label"
+            >
+                Notes
+            </label>
+
+            {{ form.notes }}
+
+            {% if form.notes.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.notes.errors }}
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Report File -->
+
+        <div class="mb-4">
+
+            <label
+                for="{{ form.report_file.id_for_label }}"
+                class="form-label"
+            >
+                Maintenance Report File
+            </label>
+
+            {{ form.report_file }}
+
+            {% if form.report_file.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.report_file.errors }}
+                </div>
+            {% endif %}
+
+            {% if maintenance.report_file %}
+                <div class="mt-2">
+
+                    <small class="text-muted">
+                        Current file:
+                    </small>
+
+                    <a
+                        href="{{ maintenance.report_file.url }}"
+                        target="_blank"
+                        class="text-decoration-none"
+                    >
+                        View existing report
+                    </a>
+
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Buttons -->
+
+        <div class="d-flex justify-content-end gap-2">
+
+            <a
+                href="{% url 'maintenance:maintenance_list' %}"
+                class="btn btn-outline-secondary"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                {{ button_text }}
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+ 
+
+</div>
+
+{% endblock %}

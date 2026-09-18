@@ -1,0 +1,1356 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Login - Laboratory Management System
+{% endblock %}
+
+{% block unauthenticated_content %}
+
+<style>
+
+/* =========================================================
+   LOGIN PAGE
+========================================================= */
+
+.login-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(25, 135, 84, .07),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(25, 135, 84, .05),
+            transparent 30%
+        ),
+        #f6f9f7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px 20px;
+
+    animation: loginFade .45s ease;
+}
+
+@keyframes loginFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN CONTAINER
+========================================================= */
+
+.login-container {
+
+    width: 100%;
+    max-width: 980px;
+
+    background: #ffffff;
+
+    border: 1px solid #e3ebe6;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 55px rgba(31, 41, 55, .08);
+
+}
+
+
+/* =========================================================
+   BRAND PANEL
+========================================================= */
+
+.login-brand {
+
+    min-height: 570px;
+
+    padding: 45px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #198754 0%,
+            #157347 55%,
+            #0f5132 100%
+        );
+
+    color: #ffffff;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* Decorative circles */
+
+.login-brand::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.055);
+
+    right: -130px;
+    top: -100px;
+
+}
+
+.login-brand::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.045);
+
+    left: -120px;
+    bottom: -100px;
+
+}
+
+
+/* =========================================================
+   BRAND CONTENT
+========================================================= */
+
+.brand-content {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.brand-logo {
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.14);
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    margin-bottom: 28px;
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+.brand-title {
+
+    font-size: 29px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    margin-bottom: 13px;
+
+}
+
+
+.brand-description {
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color: rgba(255,255,255,.82);
+
+    max-width: 390px;
+
+}
+
+
+/* =========================================================
+   BRAND FEATURES
+========================================================= */
+
+.brand-features {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 35px;
+
+}
+
+
+.brand-feature {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
+
+    font-size: 13px;
+
+    color: rgba(255,255,255,.9);
+
+}
+
+
+.brand-feature-icon {
+
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.12);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   BRAND FOOTER
+========================================================= */
+
+.brand-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 11px;
+
+    color: rgba(255,255,255,.62);
+
+}
+
+
+/* =========================================================
+   LOGIN FORM PANEL
+========================================================= */
+
+.login-form-panel {
+
+    min-height: 570px;
+
+    padding: 50px 55px;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+.login-form-container {
+
+    width: 100%;
+
+    max-width: 390px;
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.login-header {
+
+    margin-bottom: 32px;
+
+}
+
+
+.login-header h2 {
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+    margin-bottom: 7px;
+
+}
+
+
+.login-header p {
+
+    font-size: 13px;
+
+    color: #6b7280;
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================================
+   FORM GROUPS
+========================================================= */
+
+.login-form-group {
+
+    margin-bottom: 21px;
+
+}
+
+
+.login-form-label {
+
+    display: block;
+
+    color: #374151;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.login-input-wrapper {
+
+    position: relative;
+
+}
+
+
+.login-input-icon {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9ca3af;
+
+    font-size: 15px;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+.login-input {
+
+    width: 100%;
+
+    height: 48px;
+
+    padding:
+        0 14px
+        0 43px;
+
+    border: 1px solid #dfe6e2;
+
+    border-radius: 11px;
+
+    background: #fbfdfc;
+
+    color: #1f2937;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+
+.login-input::placeholder {
+
+    color: #a1a8ae;
+
+}
+
+
+.login-input:hover {
+
+    border-color: #cbd8d0;
+
+}
+
+
+.login-input:focus {
+
+    background: #ffffff;
+
+    border-color: #198754;
+
+    box-shadow:
+        0 0 0 3px rgba(25,135,84,.10);
+
+}
+
+
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 10px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #9ca3af;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+}
+
+
+.password-toggle:hover {
+
+    background: #eef8f2;
+
+    color: #198754;
+
+}
+
+
+/* =========================================================
+   REMEMBER / FORGOT
+========================================================= */
+
+.login-options {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: -4px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.login-remember {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+}
+
+
+.login-remember input {
+
+    width: 14px;
+    height: 14px;
+
+    accent-color: #198754;
+
+}
+
+
+.login-forgot {
+
+    color: #198754;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+}
+
+
+.login-forgot:hover {
+
+    color: #146c43;
+
+    text-decoration: underline;
+
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-button {
+
+    width: 100%;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background: #198754;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    box-shadow:
+        0 6px 16px rgba(25,135,84,.16);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.login-button:hover {
+
+    background: #157347;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 9px 21px rgba(25,135,84,.21);
+
+}
+
+
+.login-button:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================================
+   REGISTER LINK
+========================================================= */
+
+.login-register {
+
+    text-align: center;
+
+    margin-top: 25px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #edf0ee;
+
+    font-size: 12px;
+
+    color: #6b7280;
+
+}
+
+
+.login-register a {
+
+    color: #198754;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 4px;
+
+}
+
+
+.login-register a:hover {
+
+    color: #146c43;
+
+    text-decoration: underline;
+
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+========================================================= */
+
+.login-security {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 20px;
+
+    color: #9ca3af;
+
+    font-size: 10px;
+
+}
+
+
+.login-security i {
+
+    color: #198754;
+
+}
+
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.login-alert {
+
+    border-radius: 10px;
+
+    border: 1px solid #f1c7c7;
+
+    background: #fff7f7;
+
+    color: #842029;
+
+    font-size: 12px;
+
+    padding: 11px 13px;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .login-container {
+
+        max-width: 560px;
+
+    }
+
+    .login-brand {
+
+        min-height: auto;
+
+        padding: 35px;
+
+    }
+
+    .brand-features {
+
+        display: none;
+
+    }
+
+    .brand-footer {
+
+        margin-top: 30px;
+
+    }
+
+    .login-form-panel {
+
+        min-height: auto;
+
+        padding: 40px 45px;
+
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .login-page {
+
+        padding: 20px 14px;
+
+    }
+
+    .login-container {
+
+        border-radius: 17px;
+
+    }
+
+    .login-brand {
+
+        padding: 28px 24px;
+
+    }
+
+    .brand-logo {
+
+        width: 52px;
+        height: 52px;
+
+        font-size: 23px;
+
+        margin-bottom: 20px;
+
+    }
+
+    .brand-title {
+
+        font-size: 23px;
+
+    }
+
+    .login-form-panel {
+
+        padding: 35px 24px;
+
+    }
+
+    .login-header h2 {
+
+        font-size: 22px;
+
+    }
+
+    .login-options {
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .login-page,
+    .login-input,
+    .login-button,
+    .password-toggle {
+
+        animation: none !important;
+
+        transition: none !important;
+
+    }
+
+}
+
+</style>
+
+
+<div class="login-page">
+
+
+    <div class="login-container">
+
+
+        <div class="row g-0">
+
+
+            <!-- =================================================
+                 BRAND PANEL
+            ================================================== -->
+
+            <div class="col-lg-6">
+
+
+                <div class="login-brand">
+
+
+                    <div class="brand-content">
+
+
+                        <div class="brand-logo">
+
+                            <i class="bi bi-flask"></i>
+
+                        </div>
+
+
+                        <div class="brand-title">
+
+                            Laboratory<br>
+                            Management System
+
+                        </div>
+
+
+                        <div class="brand-description">
+
+                            A centralized platform for managing
+                            laboratory instruments, suppliers,
+                            locations, calibration and maintenance
+                            records.
+
+                        </div>
+
+
+                        <div class="brand-features">
+
+
+                            <div class="brand-feature">
+
+                                <div class="brand-feature-icon">
+
+                                    <i class="bi bi-tools"></i>
+
+                                </div>
+
+                                <span>
+                                    Instrument management
+                                </span>
+
+                            </div>
+
+
+                            <div class="brand-feature">
+
+                                <div class="brand-feature-icon">
+
+                                    <i class="bi bi-check2-circle"></i>
+
+                                </div>
+
+                                <span>
+                                    Calibration & maintenance tracking
+                                </span>
+
+                            </div>
+
+
+                            <div class="brand-feature">
+
+                                <div class="brand-feature-icon">
+
+                                    <i class="bi bi-bar-chart-line"></i>
+
+                                </div>
+
+                                <span>
+                                    Centralized laboratory reporting
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="brand-footer">
+
+                        Laboratory Instrument Management System
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <div class="col-lg-6">
+
+
+                <div class="login-form-panel">
+
+
+                    <div class="login-form-container">
+
+
+                        <!-- Header -->
+
+                        <div class="login-header">
+
+                            <h2>
+                                Welcome back
+                            </h2>
+
+                            <p>
+                                Sign in to continue to your dashboard.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Messages -->
+
+                        {% if messages %}
+
+                            {% for message in messages %}
+
+                                <div
+                                    class="alert alert-{{ message.tags }} login-alert"
+                                    role="alert"
+                                >
+
+                                    {{ message }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+
+                        <!-- Login Errors -->
+
+                        {% if form.non_field_errors %}
+
+                            <div
+                                class="login-alert"
+                                role="alert"
+                            >
+
+                                <i class="bi bi-exclamation-circle me-1"></i>
+
+                                Invalid username or password.
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Login Form -->
+
+                        <form method="post">
+
+                            {% csrf_token %}
+
+
+                            <!-- Username -->
+
+                            <div class="login-form-group">
+
+
+                                <label
+                                    for="id_username"
+                                    class="login-form-label"
+                                >
+
+                                    Username
+
+                                </label>
+
+
+                                <div class="login-input-wrapper">
+
+
+                                    <i
+                                        class="bi bi-person login-input-icon"
+                                    ></i>
+
+
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        id="id_username"
+                                        class="login-input"
+                                        placeholder="Enter your username"
+                                        autocomplete="username"
+                                        value="{{ form.username.value|default:'' }}"
+                                        required
+                                        autofocus
+                                    >
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Password -->
+
+                            <div class="login-form-group">
+
+
+                                <label
+                                    for="id_password"
+                                    class="login-form-label"
+                                >
+
+                                    Password
+
+                                </label>
+
+
+                                <div class="login-input-wrapper">
+
+
+                                    <i
+                                        class="bi bi-lock login-input-icon"
+                                    ></i>
+
+
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="id_password"
+                                        class="login-input"
+                                        placeholder="Enter your password"
+                                        autocomplete="current-password"
+                                        required
+                                    >
+
+
+                                    <button
+                                        type="button"
+                                        class="password-toggle"
+                                        id="passwordToggle"
+                                        aria-label="Show password"
+                                        title="Show password"
+                                    >
+
+                                        <i
+                                            class="bi bi-eye"
+                                            id="passwordToggleIcon"
+                                        ></i>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Options -->
+
+                            <div class="login-options">
+
+
+                                <label class="login-remember">
+
+                                    <input
+                                        type="checkbox"
+                                        name="remember_me"
+                                    >
+
+                                    <span>
+                                        Remember me
+                                    </span>
+
+                                </label>
+
+
+                                {% url 'accounts:password_reset' as password_reset_url %}
+
+                                {% if password_reset_url %}
+
+                                    <a
+                                        href="{{ password_reset_url }}"
+                                        class="login-forgot"
+                                    >
+                                        Forgot password?
+                                    </a>
+
+                                {% endif %}
+
+
+                            </div>
+
+
+                            <!-- Login Button -->
+
+                            <button
+                                type="submit"
+                                class="login-button"
+                                id="loginButton"
+                            >
+
+                                <i class="bi bi-box-arrow-in-right"></i>
+
+                                <span>
+                                    Sign In
+                                </span>
+
+                            </button>
+
+
+                        </form>
+
+
+                        <!-- Register -->
+
+                        <div class="login-register">
+
+                            <span>
+                                Don't have an account?
+                            </span>
+
+                            <a
+                                href="{% url 'accounts:register' %}"
+                            >
+                                Create Account
+                            </a>
+
+                        </div>
+
+
+                        <!-- Security -->
+
+                        <div class="login-security">
+
+                            <i class="bi bi-shield-check"></i>
+
+                            <span>
+                                Secure laboratory management environment
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+
+        /* ==========================================
+           PASSWORD VISIBILITY
+        ========================================== */
+
+        const passwordInput =
+            document.getElementById('id_password');
+
+        const passwordToggle =
+            document.getElementById('passwordToggle');
+
+        const passwordIcon =
+            document.getElementById('passwordToggleIcon');
+
+
+        if (
+            passwordInput &&
+            passwordToggle &&
+            passwordIcon
+        ) {
+
+            passwordToggle.addEventListener(
+                'click',
+                function () {
+
+                    const isPassword =
+                        passwordInput.type === 'password';
+
+
+                    passwordInput.type =
+                        isPassword
+                            ? 'text'
+                            : 'password';
+
+
+                    passwordIcon.classList.toggle(
+                        'bi-eye',
+                        !isPassword
+                    );
+
+                    passwordIcon.classList.toggle(
+                        'bi-eye-slash',
+                        isPassword
+                    );
+
+
+                    passwordToggle.setAttribute(
+                        'aria-label',
+                        isPassword
+                            ? 'Hide password'
+                            : 'Show password'
+                    );
+
+
+                    passwordToggle.setAttribute(
+                        'title',
+                        isPassword
+                            ? 'Hide password'
+                            : 'Show password'
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ==========================================
+           LOGIN BUTTON FEEDBACK
+        ========================================== */
+
+        const loginForm =
+            document.querySelector(
+                '.login-form-container form'
+            );
+
+        const loginButton =
+            document.getElementById(
+                'loginButton'
+            );
+
+
+        if (
+            loginForm &&
+            loginButton
+        ) {
+
+            loginForm.addEventListener(
+                'submit',
+                function () {
+
+                    loginButton.disabled = true;
+
+                    loginButton.innerHTML =
+                        '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>' +
+                        '<span>Signing in...</span>';
+
+                }
+            );
+
+        }
+
+
+    }
+);
+
+</script>
+
+{% endblock %}
+

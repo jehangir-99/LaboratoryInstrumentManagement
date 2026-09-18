@@ -1,0 +1,1553 @@
+{% extends 'base.html' %}
+
+{% block title %}Instruments | Laboratory Management System{% endblock %}
+
+{% block page_heading %}
+Instruments
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   INSTRUMENTS PAGE
+========================================================= */
+
+.instruments-page {
+    animation: instrumentsFade .35s ease both;
+}
+
+@keyframes instrumentsFade {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.instrument-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.instrument-page-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.instrument-title-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #eef8f2;
+    color: #198754;
+
+    font-size: 20px;
+
+    transition: all .22s ease;
+}
+
+.instrument-page-title:hover .instrument-title-icon {
+    transform: rotate(-4deg) scale(1.05);
+}
+
+.instrument-page-title h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0;
+}
+
+.instrument-page-title p {
+    font-size: 13px;
+    margin: 4px 0 0;
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.add-instrument-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow:
+        0 4px 10px rgba(25, 135, 84, .12);
+
+    transition: all .2s ease;
+}
+
+.add-instrument-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 17px rgba(25, 135, 84, .18);
+}
+
+
+/* =========================================================
+   SUMMARY STRIP
+========================================================= */
+
+.instrument-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.summary-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 11px;
+
+    background: #fff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 9px;
+
+    color: #6b7280;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.summary-chip i {
+    color: #198754;
+}
+
+.summary-chip strong {
+    color: #374151;
+}
+
+
+/* =========================================================
+   SEARCH CARD
+========================================================= */
+
+.instrument-filter-card {
+    border-radius: 15px !important;
+
+    overflow: hidden;
+
+    margin-bottom: 20px;
+}
+
+.instrument-filter-header {
+    padding: 15px 18px;
+
+    border-bottom: 1px solid #edf0ee;
+
+    background: #fbfdfc;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.instrument-filter-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.instrument-filter-title i {
+    color: #198754;
+}
+
+.filter-reset {
+    color: #6b7280;
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    transition: color .2s ease;
+}
+
+.filter-reset:hover {
+    color: #198754;
+}
+
+.instrument-filter-body {
+    padding: 18px;
+}
+
+
+/* =========================================================
+   SEARCH INPUT
+========================================================= */
+
+.search-input-wrapper {
+    position: relative;
+}
+
+.search-input-wrapper .search-icon {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9ca3af;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+.search-input-wrapper input {
+    padding-left: 38px;
+    padding-right: 45px;
+}
+
+.search-shortcut {
+    position: absolute;
+
+    right: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    padding: 3px 6px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 5px;
+
+    background: #f8faf9;
+
+    color: #9ca3af;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   FILTER LABEL
+========================================================= */
+
+.instrument-filter-body .form-label {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #6b7280;
+
+    text-transform: uppercase;
+
+    letter-spacing: .035em;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+.instrument-search-btn {
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.instrument-table-card {
+    overflow: hidden;
+
+    border-radius: 16px !important;
+}
+
+.instrument-table-header {
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #edf0ee;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.instrument-table-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.instrument-table-subtitle {
+    color: #9ca3af;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+.instrument-count {
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: #eef8f2;
+
+    color: #198754;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.instrument-table {
+    margin-bottom: 0;
+}
+
+.instrument-table thead th {
+    padding: 12px 16px;
+
+    background: #f8faf9;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    color: #6b7280;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .045em;
+
+    white-space: nowrap;
+}
+
+.instrument-table tbody td {
+    padding: 13px 16px;
+
+    border-color: #f0f2f1;
+
+    font-size: 12.5px;
+
+    color: #374151;
+
+    vertical-align: middle;
+}
+
+.instrument-row {
+    transition:
+        background .18s ease,
+        transform .18s ease;
+}
+
+.instrument-row:hover {
+    background: #f8fcfa;
+}
+
+.instrument-row:hover .instrument-code {
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   INSTRUMENT CODE
+========================================================= */
+
+.instrument-code {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #198754;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: all .18s ease;
+}
+
+.instrument-code-icon {
+    width: 26px;
+    height: 26px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #eef8f2;
+
+    color: #198754;
+
+    font-size: 11px;
+}
+
+.instrument-code:hover {
+    color: #146c43;
+}
+
+
+/* =========================================================
+   DESIGNATION
+========================================================= */
+
+.instrument-designation {
+    font-weight: 600;
+    color: #374151;
+}
+
+.instrument-secondary {
+    color: #6b7280;
+}
+
+.instrument-muted {
+    color: #9ca3af;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.instrument-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10.5px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.instrument-status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+}
+
+.status-service {
+    background: #eaf7ef;
+    color: #198754;
+}
+
+.status-service .instrument-status-dot {
+    background: #198754;
+}
+
+.status-maintenance {
+    background: #fff8e5;
+    color: #856404;
+}
+
+.status-maintenance .instrument-status-dot {
+    background: #ffc107;
+}
+
+.status-out {
+    background: #fff0f1;
+    color: #dc3545;
+}
+
+.status-out .instrument-status-dot {
+    background: #dc3545;
+}
+
+.status-other {
+    background: #f1f3f5;
+    color: #6c757d;
+}
+
+.status-other .instrument-status-dot {
+    background: #6c757d;
+}
+
+
+/* =========================================================
+   LOCATION / SUPPLIER
+========================================================= */
+
+.instrument-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.instrument-meta i {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.instrument-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 5px;
+}
+
+.instrument-action {
+    width: 31px;
+    height: 31px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    transition: all .18s ease;
+}
+
+.instrument-action:hover {
+    transform: translateY(-1px);
+}
+
+.instrument-action-view:hover {
+    background: #eef8f2;
+    color: #198754;
+    border-color: #cce6d7;
+}
+
+.instrument-action-edit:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.instrument-empty {
+    padding: 65px 20px !important;
+
+    text-align: center;
+}
+
+.instrument-empty-icon {
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #eef8f2;
+
+    color: #198754;
+
+    font-size: 27px;
+}
+
+.instrument-empty-title {
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #374151;
+
+    margin-bottom: 5px;
+}
+
+.instrument-empty-text {
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    margin-bottom: 17px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .instrument-page-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .add-instrument-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .instrument-page-title h2 {
+        font-size: 20px;
+    }
+
+    .instrument-filter-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .instrument-table-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .instrument-count {
+        align-self: flex-start;
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .instrument-page-title {
+        align-items: flex-start;
+    }
+
+    .instrument-title-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .instrument-filter-body {
+        padding: 14px;
+    }
+
+}
+
+</style>
+
+<div class="instruments-page">
+
+<!-- =========================================================
+     PAGE HEADER
+========================================================= -->
+
+<div class="instrument-page-header">
+
+
+<div class="instrument-page-title">
+
+    <div class="instrument-title-icon">
+        <i class="bi bi-tools"></i>
+    </div>
+
+    <div>
+
+        <h2>
+            Laboratory Instruments
+        </h2>
+
+        <p>
+            Manage and monitor laboratory equipment.
+        </p>
+
+    </div>
+
+</div>
+
+
+<a
+    href="{% url 'instruments:instrument_create' %}"
+    class="btn btn-primary add-instrument-btn"
+>
+
+    <i class="bi bi-plus-lg"></i>
+
+    Add Instrument
+
+</a>
+
+
+</div>
+
+<!-- =========================================================
+     SUMMARY
+========================================================= -->
+
+<div class="instrument-summary">
+
+
+<div class="summary-chip">
+
+    <i class="bi bi-collection"></i>
+
+    <span>
+        Instruments
+    </span>
+
+    <strong>
+        {{ instruments|length }}
+    </strong>
+
+</div>
+
+
+{% if query %}
+
+    <div class="summary-chip">
+
+        <i class="bi bi-search"></i>
+
+        <span>
+            Search:
+        </span>
+
+        <strong>
+            "{{ query }}"
+        </strong>
+
+    </div>
+
+{% endif %}
+
+
+{% if selected_status %}
+
+    <div class="summary-chip">
+
+        <i class="bi bi-funnel"></i>
+
+        <span>
+            Filter applied
+        </span>
+
+    </div>
+
+{% endif %}
+
+
+</div>
+
+<!-- =========================================================
+     SEARCH & FILTER
+========================================================= -->
+
+<div class="card instrument-filter-card">
+
+
+<div class="instrument-filter-header">
+
+    <div class="instrument-filter-title">
+
+        <i class="bi bi-sliders"></i>
+
+        Search & Filter
+
+    </div>
+
+
+    {% if query or selected_status %}
+
+        <a
+            href="{% url 'instruments:instrument_list' %}"
+            class="filter-reset"
+        >
+
+            <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+            Clear filters
+
+        </a>
+
+    {% endif %}
+
+</div>
+
+
+<div class="instrument-filter-body">
+
+    <form
+        method="get"
+        class="row g-3"
+        id="instrumentFilterForm"
+    >
+
+
+        <!-- Search -->
+
+        <div class="col-lg-7">
+
+            <label
+                for="instrumentSearch"
+                class="form-label"
+            >
+                Search Instruments
+            </label>
+
+
+            <div class="search-input-wrapper">
+
+                <i class="bi bi-search search-icon"></i>
+
+
+                <input
+                    type="text"
+                    id="instrumentSearch"
+                    name="q"
+                    value="{{ query }}"
+                    class="form-control"
+                    placeholder="Code, designation, brand, model or serial number..."
+                    autocomplete="off"
+                >
+
+
+                <span class="search-shortcut">
+                    /
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Status -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <label
+                for="instrumentStatus"
+                class="form-label"
+            >
+                Status
+            </label>
+
+
+            <select
+                name="status"
+                id="instrumentStatus"
+                class="form-select"
+            >
+
+                <option value="">
+                    All Statuses
+                </option>
+
+
+                {% for value, label in status_choices %}
+
+                    <option
+                        value="{{ value }}"
+                        {% if selected_status == value %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ label }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- Search Button -->
+
+        <div class="col-lg-2 col-md-6 d-flex align-items-end">
+
+            <button
+                type="submit"
+                class="btn btn-primary instrument-search-btn w-100"
+                id="instrumentSearchButton"
+            >
+
+                <i class="bi bi-search"></i>
+
+                Search
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     INSTRUMENT TABLE
+========================================================= -->
+
+<div class="card instrument-table-card">
+
+
+<!-- TABLE HEADER -->
+
+<div class="instrument-table-header">
+
+    <div>
+
+        <div class="instrument-table-title">
+
+            Instrument Inventory
+
+        </div>
+
+        <div class="instrument-table-subtitle">
+
+            Laboratory equipment currently registered in the system.
+
+        </div>
+
+    </div>
+
+
+    <div class="instrument-count">
+
+        <i class="bi bi-list-ul me-1"></i>
+
+        {{ instruments|length }} record{{ instruments|length|pluralize }}
+
+    </div>
+
+</div>
+
+
+<!-- TABLE -->
+
+<div class="table-responsive">
+
+    <table class="table instrument-table align-middle">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Internal Code
+                </th>
+
+                <th>
+                    Designation
+                </th>
+
+                <th>
+                    Brand
+                </th>
+
+                <th>
+                    Model
+                </th>
+
+                <th>
+                    Serial Number
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+                <th>
+                    Location
+                </th>
+
+                <th>
+                    Supplier
+                </th>
+
+                <th class="text-end">
+                    Actions
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+            {% for instrument in instruments %}
+
+            <tr class="instrument-row">
+
+
+                <!-- CODE -->
+
+                <td>
+
+                    <a
+                        href="{% url 'instruments:instrument_detail' instrument.pk %}"
+                        class="instrument-code"
+                    >
+
+                        <span class="instrument-code-icon">
+
+                            <i class="bi bi-upc-scan"></i>
+
+                        </span>
+
+                        {{ instrument.internal_code }}
+
+                    </a>
+
+                </td>
+
+
+                <!-- DESIGNATION -->
+
+                <td>
+
+                    <span class="instrument-designation">
+
+                        {{ instrument.designation }}
+
+                    </span>
+
+                </td>
+
+
+                <!-- BRAND -->
+
+                <td>
+
+                    {% if instrument.brand %}
+
+                        <span class="instrument-secondary">
+                            {{ instrument.brand }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="instrument-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- MODEL -->
+
+                <td>
+
+                    {% if instrument.model %}
+
+                        <span class="instrument-secondary">
+                            {{ instrument.model }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="instrument-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- SERIAL -->
+
+                <td>
+
+                    {% if instrument.serial_number %}
+
+                        <span class="instrument-secondary">
+
+                            {{ instrument.serial_number }}
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="instrument-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+
+                    {% if instrument.status == 'in_service' %}
+
+                        <span class="instrument-status status-service">
+
+                            <span class="instrument-status-dot"></span>
+
+                            In Service
+
+                        </span>
+
+
+                    {% elif instrument.status == 'maintenance' %}
+
+                        <span class="instrument-status status-maintenance">
+
+                            <span class="instrument-status-dot"></span>
+
+                            In Maintenance
+
+                        </span>
+
+
+                    {% elif instrument.status == 'out_of_service' %}
+
+                        <span class="instrument-status status-out">
+
+                            <span class="instrument-status-dot"></span>
+
+                            Out of Service
+
+                        </span>
+
+
+                    {% else %}
+
+                        <span class="instrument-status status-other">
+
+                            <span class="instrument-status-dot"></span>
+
+                            {{ instrument.get_status_display }}
+
+                        </span>
+
+                    {% endif %}
+
+
+                </td>
+
+
+                <!-- LOCATION -->
+
+                <td>
+
+                    {% if instrument.location %}
+
+                        <span class="instrument-meta">
+
+                            <i class="bi bi-geo-alt"></i>
+
+                            {{ instrument.location }}
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="instrument-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- SUPPLIER -->
+
+                <td>
+
+                    {% if instrument.supplier %}
+
+                        <span class="instrument-meta">
+
+                            <i class="bi bi-building"></i>
+
+                            {{ instrument.supplier }}
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="instrument-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- ACTIONS -->
+
+                <td>
+
+                    <div class="instrument-actions">
+
+
+                        <a
+                            href="{% url 'instruments:instrument_detail' instrument.pk %}"
+                            class="btn btn-sm btn-outline-primary instrument-action instrument-action-view"
+                            data-bs-toggle="tooltip"
+                            title="View instrument"
+                            aria-label="View instrument"
+                        >
+
+                            <i class="bi bi-eye"></i>
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'instruments:instrument_update' instrument.pk %}"
+                            class="btn btn-sm btn-outline-secondary instrument-action instrument-action-edit"
+                            data-bs-toggle="tooltip"
+                            title="Edit instrument"
+                            aria-label="Edit instrument"
+                        >
+
+                            <i class="bi bi-pencil"></i>
+
+                        </a>
+
+
+                    </div>
+
+                </td>
+
+
+            </tr>
+
+
+            {% empty %}
+
+
+            <!-- EMPTY STATE -->
+
+            <tr>
+
+                <td
+                    colspan="9"
+                    class="instrument-empty"
+                >
+
+                    <div class="instrument-empty-icon">
+
+                        <i class="bi bi-search"></i>
+
+                    </div>
+
+
+                    <div class="instrument-empty-title">
+
+                        No instruments found
+
+                    </div>
+
+
+                    <div class="instrument-empty-text">
+
+                        No instruments match your current search or filter.
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+
+
+                        {% if query or selected_status %}
+
+                            <a
+                                href="{% url 'instruments:instrument_list' %}"
+                                class="btn btn-sm btn-light"
+                            >
+
+                                <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                                Clear Filters
+
+                            </a>
+
+                        {% endif %}
+
+
+                        <a
+                            href="{% url 'instruments:instrument_create' %}"
+                            class="btn btn-sm btn-primary"
+                        >
+
+                            <i class="bi bi-plus-lg me-1"></i>
+
+                            Add Instrument
+
+                        </a>
+
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</div>
+
+</div>
+
+<!-- =========================================================
+     PAGE JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+
+        /* =====================================================
+           SEARCH SHORTCUT
+        ===================================================== */
+
+        const searchInput =
+            document.getElementById(
+                'instrumentSearch'
+            );
+
+
+        if (searchInput) {
+
+            document.addEventListener(
+                'keydown',
+                function (event) {
+
+                    /*
+                     * "/" focuses search unless the
+                     * user is already typing somewhere.
+                     */
+
+                    if (
+                        event.key === '/' &&
+                        document.activeElement.tagName !== 'INPUT' &&
+                        document.activeElement.tagName !== 'TEXTAREA' &&
+                        document.activeElement.tagName !== 'SELECT'
+                    ) {
+
+                        event.preventDefault();
+
+                        searchInput.focus();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           SEARCH LOADING STATE
+        ===================================================== */
+
+        const filterForm =
+            document.getElementById(
+                'instrumentFilterForm'
+            );
+
+
+        const searchButton =
+            document.getElementById(
+                'instrumentSearchButton'
+            );
+
+
+        if (
+            filterForm &&
+            searchButton
+        ) {
+
+            filterForm.addEventListener(
+                'submit',
+                function () {
+
+                    searchButton.disabled = true;
+
+                    searchButton.innerHTML =
+                        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>' +
+                        '<span>Searching...</span>';
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           TABLE ROW ENTRANCE
+        ===================================================== */
+
+        const rows =
+            document.querySelectorAll(
+                '.instrument-row'
+            );
+
+
+        rows.forEach(
+            function (row, index) {
+
+                row.style.opacity = '0';
+
+                row.style.transform =
+                    'translateY(5px)';
+
+
+                setTimeout(
+                    function () {
+
+                        row.style.transition =
+                            'opacity .25s ease, transform .25s ease';
+
+                        row.style.opacity = '1';
+
+                        row.style.transform =
+                            'translateY(0)';
+
+                    },
+                    40 + (index * 25)
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           DOUBLE CLICK ROW
+        ===================================================== */
+
+        rows.forEach(
+            function (row) {
+
+                row.addEventListener(
+                    'dblclick',
+                    function (event) {
+
+                        /*
+                         * Don't interfere when clicking
+                         * existing links/buttons.
+                         */
+
+                        if (
+                            event.target.closest('a') ||
+                            event.target.closest('button')
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const viewLink =
+                            row.querySelector(
+                                '.instrument-action-view'
+                            );
+
+
+                        if (viewLink) {
+
+                            window.location.href =
+                                viewLink.href;
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+{% endblock %}

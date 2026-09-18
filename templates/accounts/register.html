@@ -1,0 +1,1685 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Create Account - Laboratory Management System
+{% endblock %}
+
+{% block unauthenticated_content %}
+
+<style>
+
+/* =========================================================
+   REGISTER PAGE
+========================================================= */
+
+.register-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(25, 135, 84, .08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(25, 135, 84, .06),
+            transparent 30%
+        ),
+        #f7faf8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    animation: registerFade .45s ease;
+}
+
+@keyframes registerFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   REGISTER CONTAINER
+========================================================= */
+
+.register-container {
+    width: 100%;
+    max-width: 1080px;
+
+    background: #ffffff;
+
+    border: 1px solid #e4ece7;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 55px rgba(25, 135, 84, .08),
+        0 4px 15px rgba(0, 0, 0, .03);
+}
+
+
+/* =========================================================
+   BRAND PANEL
+========================================================= */
+
+.register-brand-panel {
+    position: relative;
+
+    min-height: 700px;
+
+    padding: 48px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #198754 0%,
+            #157347 55%,
+            #0f5132 100%
+        );
+
+    color: #ffffff;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+
+/* Decorative circles */
+
+.register-brand-panel::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -130px;
+    top: -110px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .07);
+
+}
+
+.register-brand-panel::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    left: -120px;
+    bottom: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .05);
+
+}
+
+
+/* =========================================================
+   BRAND CONTENT
+========================================================= */
+
+.register-brand {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+.register-brand-icon {
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, .14);
+
+    border: 1px solid rgba(255, 255, 255, .16);
+
+    font-size: 25px;
+
+    margin-bottom: 22px;
+
+    backdrop-filter: blur(5px);
+
+}
+
+.register-brand-title {
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    margin-bottom: 12px;
+
+}
+
+.register-brand-subtitle {
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, .78);
+
+    max-width: 370px;
+
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.register-benefits {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 40px;
+
+}
+
+.register-benefit {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
+
+    font-size: 13px;
+
+    color: rgba(255, 255, 255, .88);
+
+}
+
+.register-benefit-icon {
+
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, .12);
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   BRAND FOOTER
+========================================================= */
+
+.register-brand-footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 11px;
+
+    color: rgba(255, 255, 255, .55);
+
+}
+
+
+/* =========================================================
+   FORM PANEL
+========================================================= */
+
+.register-form-panel {
+
+    padding: 48px 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    min-height: 700px;
+
+}
+
+.register-form-wrapper {
+
+    width: 100%;
+
+    max-width: 470px;
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================================
+   FORM HEADER
+========================================================= */
+
+.register-form-header {
+
+    margin-bottom: 28px;
+
+}
+
+.register-form-header h2 {
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+    margin-bottom: 7px;
+
+}
+
+.register-form-header p {
+
+    font-size: 13px;
+
+    color: #6b7280;
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.register-form-group {
+
+    margin-bottom: 18px;
+
+}
+
+.register-form-label {
+
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #374151;
+
+    margin-bottom: 7px;
+
+}
+
+.register-input-wrapper {
+
+    position: relative;
+
+}
+
+.register-input {
+
+    width: 100%;
+
+    height: 45px;
+
+    border: 1px solid #dfe7e2;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    padding: 0 15px 0 42px;
+
+    color: #1f2937;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+.register-input::placeholder {
+
+    color: #a1a8b0;
+
+}
+
+.register-input:hover {
+
+    border-color: #c8d9cf;
+
+}
+
+.register-input:focus {
+
+    border-color: #198754;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 135, 84, .10);
+
+}
+
+.register-input-icon {
+
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9aa5a0;
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.register-select {
+
+    width: 100%;
+
+    height: 45px;
+
+    border: 1px solid #dfe7e2;
+
+    border-radius: 10px;
+
+    background-color: #ffffff;
+
+    padding: 0 38px 0 42px;
+
+    color: #1f2937;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.register-select:focus {
+
+    border-color: #198754;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 135, 84, .10);
+
+}
+
+
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+.register-password-toggle {
+
+    position: absolute;
+
+    right: 12px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: 0;
+
+    background: transparent;
+
+    color: #9aa5a0;
+
+    padding: 5px;
+
+    cursor: pointer;
+
+}
+
+.register-password-toggle:hover {
+
+    color: #198754;
+
+}
+
+
+/* =========================================================
+   FIELD ERRORS
+========================================================= */
+
+.register-field-error {
+
+    margin-top: 5px;
+
+    font-size: 11px;
+
+    color: #dc3545;
+
+}
+
+.register-field-error ul {
+
+    margin: 0;
+
+    padding-left: 17px;
+
+}
+
+
+/* =========================================================
+   PASSWORD HELP
+========================================================= */
+
+.password-help {
+
+    margin-top: 6px;
+
+    font-size: 10px;
+
+    color: #9ca3af;
+
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.register-button {
+
+    width: 100%;
+
+    height: 47px;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    background: #198754;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.register-button:hover {
+
+    background: #157347;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 18px rgba(25, 135, 84, .18);
+
+}
+
+.register-button:active {
+
+    transform: translateY(0);
+
+}
+
+.register-button:disabled {
+
+    opacity: .75;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+
+}
+
+
+/* =========================================================
+   LOGIN LINK
+========================================================= */
+
+.register-login {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    padding-top: 19px;
+
+    border-top: 1px solid #edf0ee;
+
+    font-size: 12px;
+
+    color: #6b7280;
+
+}
+
+.register-login a {
+
+    color: #198754;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 4px;
+
+}
+
+.register-login a:hover {
+
+    color: #146c43;
+
+    text-decoration: underline;
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.register-security {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 16px;
+
+    font-size: 10px;
+
+    color: #9ca3af;
+
+}
+
+.register-security i {
+
+    color: #198754;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991.98px) {
+
+    .register-container {
+
+        max-width: 520px;
+
+    }
+
+    .register-brand-panel {
+
+        min-height: auto;
+
+        padding: 35px;
+
+    }
+
+    .register-benefits {
+
+        display: none;
+
+    }
+
+    .register-brand-footer {
+
+        margin-top: 35px;
+
+    }
+
+    .register-form-panel {
+
+        min-height: auto;
+
+        padding: 42px 35px;
+
+    }
+
+}
+
+
+@media (max-width: 575.98px) {
+
+    .register-page {
+
+        padding: 15px;
+
+    }
+
+    .register-container {
+
+        border-radius: 18px;
+
+    }
+
+    .register-brand-panel {
+
+        padding: 28px 24px;
+
+    }
+
+    .register-brand-icon {
+
+        width: 50px;
+
+        height: 50px;
+
+        font-size: 21px;
+
+        border-radius: 14px;
+
+    }
+
+    .register-brand-title {
+
+        font-size: 23px;
+
+    }
+
+    .register-form-panel {
+
+        padding: 32px 24px;
+
+    }
+
+    .register-form-header h2 {
+
+        font-size: 22px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .register-page {
+
+        animation: none;
+
+    }
+
+    .register-input,
+    .register-button {
+
+        transition: none;
+
+    }
+
+}
+
+</style>
+
+
+<div class="register-page">
+
+    <div class="register-container">
+
+        <div class="row g-0">
+
+
+            <!-- =================================================
+                 BRAND PANEL
+            ================================================== -->
+
+            <div class="col-lg-5">
+
+                <div class="register-brand-panel">
+
+
+                    <div class="register-brand">
+
+
+                        <div class="register-brand-icon">
+
+                            <i class="bi bi-person-plus"></i>
+
+                        </div>
+
+
+                        <div class="register-brand-title">
+
+                            Join the<br>
+                            Laboratory System
+
+                        </div>
+
+
+                        <div class="register-brand-subtitle">
+
+                            Create your account to manage
+                            laboratory instruments, suppliers,
+                            calibration, maintenance and reports
+                            from one centralized platform.
+
+                        </div>
+
+
+                        <div class="register-benefits">
+
+
+                            <div class="register-benefit">
+
+                                <div class="register-benefit-icon">
+
+                                    <i class="bi bi-tools"></i>
+
+                                </div>
+
+                                <span>
+                                    Manage laboratory instruments
+                                </span>
+
+                            </div>
+
+
+                            <div class="register-benefit">
+
+                                <div class="register-benefit-icon">
+
+                                    <i class="bi bi-calendar-check"></i>
+
+                                </div>
+
+                                <span>
+                                    Track calibration schedules
+                                </span>
+
+                            </div>
+
+
+                            <div class="register-benefit">
+
+                                <div class="register-benefit-icon">
+
+                                    <i class="bi bi-wrench-adjustable"></i>
+
+                                </div>
+
+                                <span>
+                                    Monitor maintenance activities
+                                </span>
+
+                            </div>
+
+
+                            <div class="register-benefit">
+
+                                <div class="register-benefit-icon">
+
+                                    <i class="bi bi-bar-chart-line"></i>
+
+                                </div>
+
+                                <span>
+                                    Access laboratory reports
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="register-brand-footer">
+
+                        Laboratory Instrument Management System
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 REGISTRATION FORM
+            ================================================== -->
+
+            <div class="col-lg-7">
+
+                <div class="register-form-panel">
+
+                    <div class="register-form-wrapper">
+
+
+                        <!-- Header -->
+
+                        <div class="register-form-header">
+
+                            <h2>
+                                Create your account
+                            </h2>
+
+                            <p>
+                                Enter your details to get started.
+                            </p>
+
+                        </div>
+
+
+                        <!-- Non-field Errors -->
+
+                        {% if form.non_field_errors %}
+
+                            <div
+                                class="alert alert-danger"
+                                style="
+                                    border-radius: 11px;
+                                    border: 0;
+                                    font-size: 12px;
+                                    padding: 11px 13px;
+                                "
+                            >
+
+                                <i class="bi bi-exclamation-circle me-1"></i>
+
+                                {{ form.non_field_errors }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Registration Form -->
+
+                        <form
+                            method="post"
+                            id="registerForm"
+                        >
+
+                            {% csrf_token %}
+
+
+                            <div class="row g-3">
+
+
+                                <!-- Username -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.username.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Username
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-person register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="text"
+                                                name="{{ form.username.html_name }}"
+                                                id="{{ form.username.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Choose a username"
+                                                value="{{ form.username.value|default:'' }}"
+                                                autocomplete="username"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        {% if form.username.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.username.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Email -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.email.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Email
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-envelope register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="email"
+                                                name="{{ form.email.html_name }}"
+                                                id="{{ form.email.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Enter your email"
+                                                value="{{ form.email.value|default:'' }}"
+                                                autocomplete="email"
+                                                required
+                                            >
+
+                                        </div>
+
+
+                                        {% if form.email.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.email.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- First Name -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.first_name.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            First Name
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-person-vcard register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="text"
+                                                name="{{ form.first_name.html_name }}"
+                                                id="{{ form.first_name.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Enter first name"
+                                                value="{{ form.first_name.value|default:'' }}"
+                                                autocomplete="given-name"
+                                            >
+
+                                        </div>
+
+
+                                        {% if form.first_name.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.first_name.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Last Name -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.last_name.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Last Name
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-person-vcard register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="text"
+                                                name="{{ form.last_name.html_name }}"
+                                                id="{{ form.last_name.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Enter last name"
+                                                value="{{ form.last_name.value|default:'' }}"
+                                                autocomplete="family-name"
+                                            >
+
+                                        </div>
+
+
+                                        {% if form.last_name.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.last_name.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Password -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.password.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Password
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-lock register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="password"
+                                                name="{{ form.password.html_name }}"
+                                                id="{{ form.password.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Create a password"
+                                                autocomplete="new-password"
+                                                required
+                                            >
+
+
+                                            <button
+                                                type="button"
+                                                class="register-password-toggle"
+                                                data-password-toggle="{{ form.password.id_for_label }}"
+                                                aria-label="Show password"
+                                            >
+
+                                                <i class="bi bi-eye"></i>
+
+                                            </button>
+
+                                        </div>
+
+
+                                        <div class="password-help">
+
+                                            Use a strong password for better security.
+
+                                        </div>
+
+
+                                        {% if form.password.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.password.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Confirm Password -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.confirm_password.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Confirm Password
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-shield-lock register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="password"
+                                                name="{{ form.confirm_password.html_name }}"
+                                                id="{{ form.confirm_password.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Confirm password"
+                                                autocomplete="new-password"
+                                                required
+                                            >
+
+
+                                            <button
+                                                type="button"
+                                                class="register-password-toggle"
+                                                data-password-toggle="{{ form.confirm_password.id_for_label }}"
+                                                aria-label="Show password"
+                                            >
+
+                                                <i class="bi bi-eye"></i>
+
+                                            </button>
+
+                                        </div>
+
+
+                                        {% if form.confirm_password.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.confirm_password.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Role -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.role.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Role
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-person-badge register-input-icon"
+                                            ></i>
+
+
+                                            <select
+                                                name="{{ form.role.html_name }}"
+                                                id="{{ form.role.id_for_label }}"
+                                                class="register-select"
+                                                required
+                                            >
+
+                                                {% for value, label in form.role.field.choices %}
+
+                                                    <option
+                                                        value="{{ value }}"
+                                                        {% if form.role.value|stringformat:"s" == value|stringformat:"s" %}
+                                                            selected
+                                                        {% endif %}
+                                                    >
+                                                        {{ label }}
+                                                    </option>
+
+                                                {% endfor %}
+
+                                            </select>
+
+                                        </div>
+
+
+                                        {% if form.role.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.role.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Department -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.department.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Department
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-building register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="text"
+                                                name="{{ form.department.html_name }}"
+                                                id="{{ form.department.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Enter department"
+                                                value="{{ form.department.value|default:'' }}"
+                                            >
+
+                                        </div>
+
+
+                                        {% if form.department.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.department.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Phone -->
+
+                                <div class="col-md-6">
+
+                                    <div class="register-form-group">
+
+                                        <label
+                                            for="{{ form.phone.id_for_label }}"
+                                            class="register-form-label"
+                                        >
+                                            Phone
+                                        </label>
+
+
+                                        <div class="register-input-wrapper">
+
+                                            <i
+                                                class="bi bi-telephone register-input-icon"
+                                            ></i>
+
+
+                                            <input
+                                                type="tel"
+                                                name="{{ form.phone.html_name }}"
+                                                id="{{ form.phone.id_for_label }}"
+                                                class="register-input"
+                                                placeholder="Enter phone number"
+                                                value="{{ form.phone.value|default:'' }}"
+                                                autocomplete="tel"
+                                            >
+
+                                        </div>
+
+
+                                        {% if form.phone.errors %}
+
+                                            <div class="register-field-error">
+
+                                                {{ form.phone.errors }}
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Submit -->
+
+                            <div class="mt-2">
+
+                                <button
+                                    type="submit"
+                                    class="register-button"
+                                    id="registerButton"
+                                >
+
+                                    <i
+                                        class="bi bi-person-plus"
+                                        id="registerButtonIcon"
+                                    ></i>
+
+                                    <span id="registerButtonText">
+                                        Create Account
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+
+                        </form>
+
+
+                        <!-- Login -->
+
+                        <div class="register-login">
+
+                            <span>
+                                Already have an account?
+                            </span>
+
+                            <a
+                                href="{% url 'accounts:login' %}"
+                            >
+                                Sign In
+                            </a>
+
+                        </div>
+
+
+                        <!-- Security -->
+
+                        <div class="register-security">
+
+                            <i class="bi bi-shield-check"></i>
+
+                            Secure laboratory management environment
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+
+        /* ==========================================
+           PASSWORD VISIBILITY
+        ========================================== */
+
+        const passwordToggles =
+            document.querySelectorAll(
+                '[data-password-toggle]'
+            );
+
+
+        passwordToggles.forEach(
+            function (toggle) {
+
+                toggle.addEventListener(
+                    'click',
+                    function () {
+
+                        const inputId =
+                            toggle.getAttribute(
+                                'data-password-toggle'
+                            );
+
+                        const input =
+                            document.getElementById(
+                                inputId
+                            );
+
+                        const icon =
+                            toggle.querySelector('i');
+
+
+                        if (!input || !icon) {
+                            return;
+                        }
+
+
+                        const isPassword =
+                            input.type === 'password';
+
+
+                        input.type =
+                            isPassword
+                                ? 'text'
+                                : 'password';
+
+
+                        icon.className =
+                            isPassword
+                                ? 'bi bi-eye-slash'
+                                : 'bi bi-eye';
+
+
+                        toggle.setAttribute(
+                            'aria-label',
+                            isPassword
+                                ? 'Hide password'
+                                : 'Show password'
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* ==========================================
+           REGISTER BUTTON LOADING STATE
+        ========================================== */
+
+        const registerForm =
+            document.getElementById(
+                'registerForm'
+            );
+
+        const registerButton =
+            document.getElementById(
+                'registerButton'
+            );
+
+        const registerButtonText =
+            document.getElementById(
+                'registerButtonText'
+            );
+
+        const registerButtonIcon =
+            document.getElementById(
+                'registerButtonIcon'
+            );
+
+
+        if (
+            registerForm &&
+            registerButton
+        ) {
+
+            registerForm.addEventListener(
+                'submit',
+                function () {
+
+                    registerButton.disabled = true;
+
+
+                    if (registerButtonText) {
+
+                        registerButtonText.textContent =
+                            'Creating Account...';
+
+                    }
+
+
+                    if (registerButtonIcon) {
+
+                        registerButtonIcon.className =
+                            'bi bi-arrow-repeat';
+
+                    }
+
+                }
+            );
+
+        }
+
+
+    }
+);
+
+</script>
+
+{% endblock %}
+

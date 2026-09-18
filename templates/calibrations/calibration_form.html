@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }} - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+
+  
+<h2>{{ title }}</h2>
+
+<p class="text-muted">
+    Enter the calibration information below.
+</p>
+  
+
+</div>
+
+<div class="card border-0 shadow-sm">
+
+  
+<div class="card-body p-4">
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        {% if form.non_field_errors %}
+
+            <div class="alert alert-danger">
+
+                {{ form.non_field_errors }}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="row g-4">
+
+
+            <!-- Instrument -->
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Instrument *
+                </label>
+
+                {{ form.instrument }}
+
+                {% for error in form.instrument.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Status *
+                </label>
+
+                {{ form.status }}
+
+                {% for error in form.status.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Calibration Date -->
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Calibration Date *
+                </label>
+
+                {{ form.calibration_date }}
+
+                {% for error in form.calibration_date.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Next Calibration Date -->
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Next Calibration Date
+                </label>
+
+                {{ form.next_calibration_date }}
+
+                {% for error in form.next_calibration_date.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Certificate Number -->
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Certificate Number
+                </label>
+
+                {{ form.certificate_number }}
+
+                {% for error in form.certificate_number.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Performed By -->
+
+            <div class="col-md-6">
+
+                <label class="form-label">
+                    Performed By
+                </label>
+
+                {{ form.performed_by }}
+
+                {% for error in form.performed_by.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Remarks -->
+
+            <div class="col-md-12">
+
+                <label class="form-label">
+                    Remarks
+                </label>
+
+                {{ form.remarks }}
+
+                {% for error in form.remarks.errors %}
+
+                    <div class="text-danger small">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <hr class="my-4">
+
+
+        <div class="d-flex justify-content-end gap-2">
+
+            <a
+                href="{% url 'calibrations:calibration_list' %}"
+                class="btn btn-outline-secondary"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="btn btn-dark"
+            >
+                {{ button_text }}
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+  
+
+</div>
+
+{% endblock %}

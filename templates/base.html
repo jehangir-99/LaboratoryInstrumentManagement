@@ -1,0 +1,4730 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#198754"
+>
+
+<meta
+    name="description"
+    content="Laboratory Management System"
+>
+
+<meta
+    name="color-scheme"
+    content="light"
+>
+
+<meta
+    name="robots"
+    content="noindex, nofollow"
+>
+
+<!-- Performance -->
+
+<link
+    rel="preconnect"
+    href="https://cdn.jsdelivr.net"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    rel="dns-prefetch"
+    href="//cdn.jsdelivr.net"
+>
+
+<link
+    rel="dns-prefetch"
+    href="//fonts.googleapis.com"
+>
+
+
+<title>
+    {% block title %}
+        Laboratory Management System
+    {% endblock %}
+</title>
+
+
+<!-- =========================================================
+     BOOTSTRAP
+========================================================= -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
+<!-- =========================================================
+     BOOTSTRAP ICONS
+========================================================= -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+>
+
+
+<!-- =========================================================
+     GOOGLE FONT
+========================================================= -->
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+
+<style>
+
+/* =========================================================
+   ROOT / DESIGN SYSTEM
+========================================================= */
+
+:root {
+
+    --green-primary: #198754;
+    --green-dark: #146c43;
+    --green-deeper: #0f5132;
+
+    --green-light: #e8f6ee;
+    --green-soft: #f3faf6;
+    --green-ultra-soft: #f8fcf9;
+
+    --green-hover: #157347;
+    --green-border: #cfe5d7;
+
+    --text-dark: #1f2937;
+    --text-medium: #374151;
+    --text-muted: #6b7280;
+    --text-light: #9ca3af;
+
+    --border-color: #e5e7eb;
+    --border-soft: #edf0ee;
+
+    --body-bg: #f6faf8;
+    --white: #ffffff;
+
+    --danger: #dc3545;
+    --warning: #f59e0b;
+    --info: #0d6efd;
+
+    --sidebar-width: 255px;
+    --sidebar-collapsed-width: 78px;
+
+    --topbar-height: 72px;
+
+    --radius-xs: 6px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    --shadow-xs:
+        0 1px 3px rgba(16, 24, 40, .035);
+
+    --shadow-sm:
+        0 2px 8px rgba(16, 24, 40, .045);
+
+    --shadow-md:
+        0 8px 24px rgba(16, 24, 40, .065);
+
+    --shadow-lg:
+        0 14px 40px rgba(16, 24, 40, .09);
+
+    --shadow-focus:
+        0 0 0 3px rgba(25, 135, 84, .10);
+
+    --transition:
+        all .22s cubic-bezier(.4, 0, .2, 1);
+
+    --ease:
+        cubic-bezier(.4, 0, .2, 1);
+
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+    -webkit-text-size-adjust: 100%;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    font-family:
+        'Inter',
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(25, 135, 84, .035),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(25, 135, 84, .025),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #f8fcfa 0%,
+            #f4faf7 50%,
+            #f8fbf9 100%
+        );
+
+    color: var(--text-dark);
+
+    -webkit-font-smoothing: antialiased;
+
+    -moz-osx-font-smoothing: grayscale;
+
+    text-rendering: optimizeLegibility;
+
+}
+
+
+/* =========================================================
+   PREVENT SCROLL WHEN MOBILE SIDEBAR IS OPEN
+========================================================= */
+
+body.sidebar-open {
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    color: var(--text-dark);
+
+    letter-spacing: -.025em;
+
+}
+
+
+p:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+a {
+
+    transition: var(--transition);
+
+}
+
+
+button,
+a,
+input,
+select,
+textarea {
+
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+
+    background:
+        rgba(25, 135, 84, .16);
+
+    color:
+        var(--green-deeper);
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+
+    width: 8px;
+
+    height: 8px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background: #f3f5f4;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: #cbd5d0;
+
+    border-radius: 20px;
+
+    border: 2px solid #f3f5f4;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #aebdb5;
+
+}
+
+
+/* Firefox */
+
+* {
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #cbd5d0
+        #f3f5f4;
+
+}
+
+
+/* =========================================================
+   SKIP LINK — ACCESSIBILITY
+========================================================= */
+
+.skip-link {
+
+    position: fixed;
+
+    top: -100px;
+
+    left: 16px;
+
+    z-index: 100000;
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    background:
+        var(--green-deeper);
+
+    color:
+        #fff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow:
+        var(--shadow-lg);
+
+    transition:
+        top .2s ease;
+
+}
+
+
+.skip-link:focus {
+
+    top: 16px;
+
+    color: #fff;
+
+}
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+.page-loader {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    z-index: 99999;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transition:
+        opacity .2s ease;
+
+}
+
+
+.page-loader.active {
+
+    opacity: 1;
+
+}
+
+
+.page-loader::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -35%;
+
+    width: 35%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--green-primary),
+            #46b879,
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px
+        rgba(25, 135, 84, .4);
+
+    animation:
+        pageLoading 1s infinite ease-in-out;
+
+}
+
+
+@keyframes pageLoading {
+
+    0% {
+        left: -35%;
+    }
+
+    100% {
+        left: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: var(--sidebar-width);
+
+    height: 100vh;
+
+    height: 100dvh;
+
+    background:
+        rgba(255, 255, 255, .97);
+
+    border-right:
+        1px solid var(--border-color);
+
+    display: flex;
+
+    flex-direction: column;
+
+    z-index: 1050;
+
+    transition:
+        width .25s var(--ease),
+        transform .25s var(--ease);
+
+    box-shadow:
+        4px 0 20px
+        rgba(16, 24, 40, .025);
+
+    will-change:
+        width,
+        transform;
+
+}
+
+
+/* =========================================================
+   COLLAPSED DESKTOP SIDEBAR
+========================================================= */
+
+body.sidebar-collapsed .sidebar {
+
+    width:
+        var(--sidebar-collapsed-width);
+
+}
+
+
+body.sidebar-collapsed .main-wrapper {
+
+    margin-left:
+        var(--sidebar-collapsed-width);
+
+}
+
+
+body.sidebar-collapsed .sidebar-brand {
+
+    justify-content:
+        center;
+
+    padding:
+        0;
+
+}
+
+
+body.sidebar-collapsed .sidebar-brand-icon {
+
+    margin-right:
+        0;
+
+}
+
+
+body.sidebar-collapsed .sidebar-brand-text,
+body.sidebar-collapsed .nav-section-title,
+body.sidebar-collapsed .sidebar-link span,
+body.sidebar-collapsed .user-box .flex-grow-1,
+body.sidebar-collapsed .logout-btn {
+
+    display:
+        none;
+
+}
+
+
+body.sidebar-collapsed .sidebar-nav {
+
+    padding-left:
+        12px;
+
+    padding-right:
+        12px;
+
+}
+
+
+body.sidebar-collapsed .sidebar-link {
+
+    justify-content:
+        center;
+
+    padding-left:
+        0;
+
+    padding-right:
+        0;
+
+}
+
+
+body.sidebar-collapsed .sidebar-link::before {
+
+    display:
+        none;
+
+}
+
+
+body.sidebar-collapsed .sidebar-link i {
+
+    font-size:
+        18px;
+
+}
+
+
+body.sidebar-collapsed .sidebar-user {
+
+    padding:
+        12px;
+
+}
+
+
+body.sidebar-collapsed .user-box {
+
+    justify-content:
+        center;
+
+    padding:
+        9px;
+
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+========================================================= */
+
+.sidebar-brand {
+
+    height:
+        var(--topbar-height);
+
+    min-height:
+        var(--topbar-height);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    padding:
+        0 20px;
+
+    border-bottom:
+        1px solid var(--border-color);
+
+    color:
+        var(--green-primary);
+
+    text-decoration:
+        none;
+
+    font-weight:
+        800;
+
+    font-size:
+        16px;
+
+    letter-spacing:
+        -.02em;
+
+    overflow:
+        hidden;
+
+    white-space:
+        nowrap;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.sidebar-brand:hover {
+
+    color:
+        var(--green-dark);
+
+    background:
+        var(--green-ultra-soft);
+
+}
+
+
+.sidebar-brand-icon {
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        11px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-primary),
+            var(--green-dark)
+        );
+
+    color:
+        #fff;
+
+    margin-right:
+        11px;
+
+    box-shadow:
+        0 5px 12px
+        rgba(25, 135, 84, .18);
+
+    transition:
+        var(--transition);
+
+}
+
+
+.sidebar-brand:hover .sidebar-brand-icon {
+
+    transform:
+        rotate(-4deg)
+        scale(1.05);
+
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+
+    padding:
+        18px 12px;
+
+    flex:
+        1;
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+    overscroll-behavior:
+        contain;
+
+}
+
+
+.nav-section-title {
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .1em;
+
+    color:
+        #a0aaa4;
+
+    padding:
+        12px 12px 8px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================================
+   SIDEBAR LINK
+========================================================= */
+
+.sidebar-link {
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    padding:
+        10px 12px;
+
+    margin-bottom:
+        4px;
+
+    min-height:
+        43px;
+
+    border-radius:
+        10px;
+
+    color:
+        #4b5563;
+
+    text-decoration:
+        none;
+
+    font-size:
+        13.5px;
+
+    font-weight:
+        500;
+
+    transition:
+        var(--transition);
+
+    overflow:
+        hidden;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.sidebar-link::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    top:
+        50%;
+
+    width:
+        3px;
+
+    height:
+        0;
+
+    border-radius:
+        0 4px 4px 0;
+
+    background:
+        var(--green-primary);
+
+    transform:
+        translateY(-50%);
+
+    transition:
+        var(--transition);
+
+}
+
+
+.sidebar-link i {
+
+    width:
+        21px;
+
+    flex-shrink:
+        0;
+
+    text-align:
+        center;
+
+    font-size:
+        17px;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.sidebar-link:hover {
+
+    color:
+        var(--green-primary);
+
+    background:
+        var(--green-soft);
+
+    transform:
+        translateX(2px);
+
+}
+
+
+.sidebar-link:hover i {
+
+    transform:
+        scale(1.08);
+
+}
+
+
+.sidebar-link.active {
+
+    color:
+        var(--green-primary);
+
+    background:
+        var(--green-light);
+
+    font-weight:
+        650;
+
+}
+
+
+.sidebar-link.active::before {
+
+    height:
+        21px;
+
+}
+
+
+.sidebar-link.active i {
+
+    color:
+        var(--green-primary);
+
+}
+
+
+/* =========================================================
+   SIDEBAR USER
+========================================================= */
+
+.sidebar-user {
+
+    padding:
+        13px;
+
+    border-top:
+        1px solid var(--border-color);
+
+    background:
+        rgba(255,255,255,.98);
+
+}
+
+
+.user-box {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f3faf6,
+            #f8fcf9
+        );
+
+    border:
+        1px solid #e5f0e9;
+
+    border-radius:
+        12px;
+
+    padding:
+        10px;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.user-box:hover {
+
+    border-color:
+        #cfe5d7;
+
+    box-shadow:
+        var(--shadow-sm);
+
+}
+
+
+.user-avatar {
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-primary),
+            var(--green-dark)
+        );
+
+    color:
+        #fff;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-weight:
+        700;
+
+    font-size:
+        13px;
+
+    box-shadow:
+        0 4px 10px
+        rgba(25, 135, 84, .16);
+
+}
+
+
+.user-name {
+
+    font-size:
+        12.5px;
+
+    font-weight:
+        650;
+
+    color:
+        var(--text-dark);
+
+}
+
+
+.user-role {
+
+    font-size:
+        10.5px;
+
+    color:
+        var(--text-muted);
+
+    margin-top:
+        1px;
+
+}
+
+
+.logout-btn {
+
+    width:
+        31px;
+
+    height:
+        31px;
+
+    flex-shrink:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        8px;
+
+    color:
+        #6b7280;
+
+    text-decoration:
+        none;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.logout-btn:hover {
+
+    color:
+        var(--danger);
+
+    background:
+        #fff1f2;
+
+}
+
+
+/* =========================================================
+   MAIN WRAPPER
+========================================================= */
+
+.main-wrapper {
+
+    margin-left:
+        var(--sidebar-width);
+
+    min-height:
+        100vh;
+
+    min-height:
+        100dvh;
+
+    transition:
+        margin-left .25s var(--ease);
+
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+
+    position:
+        sticky;
+
+    top:
+        0;
+
+    height:
+        var(--topbar-height);
+
+    min-height:
+        var(--topbar-height);
+
+    background:
+        rgba(255, 255, 255, .90);
+
+    backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
+
+    border-bottom:
+        1px solid rgba(229, 231, 235, .9);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        0 28px;
+
+    z-index:
+        900;
+
+}
+
+
+.topbar-left {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    min-width:
+        0;
+
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-title {
+
+    font-size:
+        17px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        -.015em;
+
+    margin:
+        0;
+
+    color:
+        var(--text-dark);
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+}
+
+
+.page-subtitle {
+
+    font-size:
+        11px;
+
+    color:
+        var(--text-muted);
+
+    margin-top:
+        2px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================================
+   DESKTOP SIDEBAR TOGGLE
+========================================================= */
+
+.sidebar-toggle {
+
+    width:
+        37px;
+
+    height:
+        37px;
+
+    flex-shrink:
+        0;
+
+    border:
+        1px solid var(--border-color);
+
+    background:
+        #fff;
+
+    color:
+        #6b7280;
+
+    border-radius:
+        9px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.sidebar-toggle:hover {
+
+    color:
+        var(--green-primary);
+
+    border-color:
+        var(--green-border);
+
+    background:
+        var(--green-soft);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.sidebar-toggle:focus-visible {
+
+    box-shadow:
+        var(--shadow-focus);
+
+}
+
+
+/* =========================================================
+   TOPBAR USER
+========================================================= */
+
+.topbar-user {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    padding:
+        5px 9px;
+
+    border-radius:
+        10px;
+
+    transition:
+        var(--transition);
+
+    flex-shrink:
+        0;
+
+}
+
+
+.topbar-user:hover {
+
+    background:
+        var(--green-soft);
+
+}
+
+
+.topbar-avatar {
+
+    width:
+        31px;
+
+    height:
+        31px;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        9px;
+
+    background:
+        var(--green-light);
+
+    color:
+        var(--green-primary);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu-btn {
+
+    width:
+        39px;
+
+    height:
+        39px;
+
+    flex-shrink:
+        0;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid var(--border-color);
+
+    background:
+        #fff;
+
+    color:
+        var(--text-dark);
+
+    border-radius:
+        10px;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.mobile-menu-btn:hover {
+
+    color:
+        var(--green-primary);
+
+    border-color:
+        var(--green-border);
+
+    background:
+        var(--green-soft);
+
+}
+
+
+/* =========================================================
+   SIDEBAR OVERLAY
+========================================================= */
+
+.sidebar-overlay {
+
+    display:
+        none;
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    background:
+        rgba(15, 23, 42, .30);
+
+    backdrop-filter:
+        blur(2px);
+
+    -webkit-backdrop-filter:
+        blur(2px);
+
+    z-index:
+        1040;
+
+    opacity:
+        0;
+
+    transition:
+        opacity .25s ease;
+
+}
+
+
+.sidebar-overlay.show {
+
+    display:
+        block;
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+
+    padding:
+        28px;
+
+    min-height:
+        calc(100vh - var(--topbar-height));
+
+    min-height:
+        calc(100dvh - var(--topbar-height));
+
+    animation:
+        contentFadeIn .32s ease both;
+
+}
+
+
+@keyframes contentFadeIn {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(6px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+
+    border:
+        1px solid var(--border-color) !important;
+
+    border-radius:
+        var(--radius-md) !important;
+
+    background:
+        rgba(255,255,255,.97);
+
+    box-shadow:
+        var(--shadow-sm) !important;
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+
+}
+
+
+.card:hover {
+
+    border-color:
+        #d9e8df !important;
+
+    box-shadow:
+        var(--shadow-md) !important;
+
+}
+
+
+/* =========================================================
+   CARD — DISABLE HOVER WHEN NEEDED
+========================================================= */
+
+.card.no-hover:hover {
+
+    border-color:
+        var(--border-color) !important;
+
+    box-shadow:
+        var(--shadow-sm) !important;
+
+}
+
+
+/* =========================================================
+   CARD HOVER UTILITY
+========================================================= */
+
+.hover-lift {
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease;
+
+}
+
+
+.hover-lift:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        var(--shadow-md);
+
+}
+
+
+/* =========================================================
+   STAT CARD
+========================================================= */
+
+.stat-card {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+}
+
+
+.stat-card::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        90px;
+
+    height:
+        90px;
+
+    right:
+        -30px;
+
+    bottom:
+        -35px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(25, 135, 84, .045);
+
+    transition:
+        var(--transition);
+
+    pointer-events:
+        none;
+
+}
+
+
+.stat-card:hover::after {
+
+    transform:
+        scale(1.25);
+
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.card-header {
+
+    background:
+        #fff;
+
+    border-bottom:
+        1px solid var(--border-color);
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        9px;
+
+    font-weight:
+        600;
+
+    font-size:
+        13px;
+
+    transition:
+        transform .15s ease,
+        box-shadow .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.btn:active {
+
+    transform:
+        scale(.97);
+
+}
+
+
+.btn:disabled,
+.btn.disabled {
+
+    transform:
+        none !important;
+
+    box-shadow:
+        none !important;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+.btn-primary {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-primary),
+            #157347
+        );
+
+    border-color:
+        var(--green-primary);
+
+    box-shadow:
+        0 3px 8px
+        rgba(25, 135, 84, .12);
+
+}
+
+
+.btn-primary:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--green-dark),
+            #0f5132
+        );
+
+    border-color:
+        var(--green-dark);
+
+    box-shadow:
+        0 5px 14px
+        rgba(25, 135, 84, .18);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.btn-outline-primary {
+
+    color:
+        var(--green-primary);
+
+    border-color:
+        var(--green-primary);
+
+}
+
+
+.btn-outline-primary:hover {
+
+    background:
+        var(--green-primary);
+
+    border-color:
+        var(--green-primary);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.btn-light {
+
+    border-color:
+        var(--border-color);
+
+}
+
+
+.btn-light:hover {
+
+    background:
+        var(--green-soft);
+
+    border-color:
+        #d6e9dd;
+
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+========================================================= */
+
+.form-control,
+.form-select {
+
+    border-color:
+        #dfe5e2;
+
+    border-radius:
+        9px;
+
+    font-size:
+        13px;
+
+    min-height:
+        40px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+}
+
+
+.form-control:hover,
+.form-select:hover {
+
+    border-color:
+        #c8d8cf;
+
+}
+
+
+.form-control:focus,
+.form-select:focus {
+
+    border-color:
+        #74b995;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(25, 135, 84, .09);
+
+}
+
+
+.form-control::placeholder {
+
+    color:
+        #a0aaa4;
+
+    opacity:
+        1;
+
+}
+
+
+.form-control:disabled,
+.form-select:disabled {
+
+    background:
+        #f6f8f7;
+
+}
+
+
+/* =========================================================
+   INPUT GROUP
+========================================================= */
+
+.input-group-text {
+
+    border-color:
+        #dfe5e2;
+
+    color:
+        var(--text-muted);
+
+    background:
+        #fff;
+
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.table {
+
+    font-size:
+        13px;
+
+}
+
+
+.table > :not(caption) > * > * {
+
+    padding:
+        11px 12px;
+
+}
+
+
+.table thead th {
+
+    font-size:
+        11px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .035em;
+
+    color:
+        #6b7280;
+
+    font-weight:
+        700;
+
+    background:
+        #f8faf9;
+
+    border-bottom-width:
+        1px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.table tbody tr {
+
+    transition:
+        background .18s ease;
+
+}
+
+
+.table tbody tr:hover {
+
+    background:
+        #f7fbf8;
+
+}
+
+
+.table-hover > tbody > tr:hover > * {
+
+    --bs-table-accent-bg:
+        #f7fbf8;
+
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+
+    border-radius:
+        7px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        .01em;
+
+}
+
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.alert {
+
+    border-radius:
+        10px;
+
+    border:
+        1px solid transparent;
+
+    box-shadow:
+        var(--shadow-sm);
+
+    font-size:
+        13px;
+
+}
+
+
+.alert-success {
+
+    background:
+        #eef9f2;
+
+    border-color:
+        #d7efdf;
+
+    color:
+        #146c43;
+
+}
+
+
+.alert-danger {
+
+    background:
+        #fff2f2;
+
+    border-color:
+        #f3d4d4;
+
+}
+
+
+.alert-warning {
+
+    background:
+        #fff9e8;
+
+    border-color:
+        #f2e3b3;
+
+}
+
+
+.alert-info {
+
+    background:
+        #eef7ff;
+
+    border-color:
+        #d7e9f8;
+
+}
+
+
+/* =========================================================
+   DROPDOWNS
+========================================================= */
+
+.dropdown-menu {
+
+    border:
+        1px solid var(--border-color);
+
+    border-radius:
+        12px;
+
+    padding:
+        7px;
+
+    box-shadow:
+        var(--shadow-lg);
+
+    animation:
+        dropdownIn .18s ease both;
+
+}
+
+
+@keyframes dropdownIn {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-5px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.dropdown-item {
+
+    border-radius:
+        8px;
+
+    font-size:
+        13px;
+
+    padding:
+        9px 10px;
+
+    transition:
+        var(--transition);
+
+}
+
+
+.dropdown-item:hover {
+
+    background:
+        var(--green-soft);
+
+    color:
+        var(--green-primary);
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal-content {
+
+    border:
+        1px solid var(--border-color);
+
+    border-radius:
+        15px;
+
+    box-shadow:
+        var(--shadow-lg);
+
+}
+
+
+.modal-header {
+
+    border-bottom:
+        1px solid var(--border-soft);
+
+}
+
+
+.modal-footer {
+
+    border-top:
+        1px solid var(--border-soft);
+
+}
+
+
+/* =========================================================
+   TOOLTIPS
+========================================================= */
+
+.tooltip-inner {
+
+    background:
+        #1f2937;
+
+    border-radius:
+        7px;
+
+    font-size:
+        11px;
+
+    padding:
+        6px 9px;
+
+    box-shadow:
+        var(--shadow-sm);
+
+}
+
+
+/* =========================================================
+   SCROLL TO TOP
+========================================================= */
+
+.scroll-top {
+
+    position:
+        fixed;
+
+    right:
+        24px;
+
+    bottom:
+        24px;
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    border:
+        1px solid var(--border-color);
+
+    border-radius:
+        11px;
+
+    background:
+        #fff;
+
+    color:
+        var(--green-primary);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    box-shadow:
+        var(--shadow-md);
+
+    cursor:
+        pointer;
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        var(--transition);
+
+    z-index:
+        800;
+
+}
+
+
+.scroll-top.show {
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
+
+    transform:
+        translateY(0);
+
+}
+
+
+.scroll-top:hover {
+
+    background:
+        var(--green-primary);
+
+    border-color:
+        var(--green-primary);
+
+    color:
+        #fff;
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+/* =========================================================
+   RIPPLE
+========================================================= */
+
+.ripple {
+
+    position:
+        absolute;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,255,255,.35);
+
+    transform:
+        scale(0);
+
+    animation:
+        rippleEffect .55s linear;
+
+    pointer-events:
+        none;
+
+}
+
+
+@keyframes rippleEffect {
+
+    to {
+
+        transform:
+            scale(4);
+
+        opacity:
+            0;
+
+    }
+
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+:focus-visible {
+
+    outline:
+        3px solid
+        rgba(25, 135, 84, .20);
+
+    outline-offset:
+        2px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.main-footer {
+
+    margin:
+        10px 28px 24px;
+
+    padding-top:
+        18px;
+
+    border-top:
+        1px solid var(--border-soft);
+
+    color:
+        #9ca3af;
+
+    font-size:
+        11px;
+
+}
+
+
+.main-footer a {
+
+    color:
+        #7d8a83;
+
+    text-decoration:
+        none;
+
+}
+
+
+.main-footer a:hover {
+
+    color:
+        var(--green-primary);
+
+}
+
+
+/* =========================================================
+   EMPTY / MUTED HELPERS
+========================================================= */
+
+.text-muted {
+
+    color:
+        var(--text-muted) !important;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .sidebar {
+
+        transform:
+            translateX(-100%);
+
+        box-shadow:
+            8px 0 30px
+            rgba(0,0,0,.08);
+
+    }
+
+
+    .sidebar.show {
+
+        transform:
+            translateX(0);
+
+    }
+
+
+    .main-wrapper {
+
+        margin-left:
+            0 !important;
+
+    }
+
+
+    body.sidebar-collapsed .main-wrapper {
+
+        margin-left:
+            0;
+
+    }
+
+
+    body.sidebar-collapsed .sidebar {
+
+        width:
+            var(--sidebar-width);
+
+    }
+
+
+    body.sidebar-collapsed .sidebar-brand {
+
+        justify-content:
+            flex-start;
+
+        padding:
+            0 20px;
+
+    }
+
+
+    body.sidebar-collapsed .sidebar-brand-text,
+    body.sidebar-collapsed .nav-section-title,
+    body.sidebar-collapsed .sidebar-link span,
+    body.sidebar-collapsed .user-box .flex-grow-1,
+    body.sidebar-collapsed .logout-btn {
+
+        display:
+            block;
+
+    }
+
+
+    body.sidebar-collapsed .sidebar-brand-icon {
+
+        margin-right:
+            11px;
+
+    }
+
+
+    body.sidebar-collapsed .sidebar-link {
+
+        justify-content:
+            flex-start;
+
+        padding:
+            10px 12px;
+
+    }
+
+
+    body.sidebar-collapsed .sidebar-link i {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .topbar {
+
+        padding:
+            0 18px;
+
+    }
+
+
+    .main-content {
+
+        padding:
+            20px;
+
+    }
+
+
+    .mobile-menu-btn {
+
+        display:
+            inline-flex !important;
+
+    }
+
+
+    .sidebar-toggle {
+
+        display:
+            none !important;
+
+    }
+
+
+    .topbar-user-name {
+
+        display:
+            none;
+
+    }
+
+
+    .main-footer {
+
+        margin-left:
+            20px;
+
+        margin-right:
+            20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 992px) {
+
+    .mobile-menu-btn {
+
+        display:
+            none !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .main-content {
+
+        padding:
+            15px;
+
+    }
+
+
+    .topbar {
+
+        height:
+            64px;
+
+        min-height:
+            64px;
+
+        padding:
+            0 14px;
+
+    }
+
+
+    .page-title {
+
+        font-size:
+            15px;
+
+        max-width:
+            190px;
+
+    }
+
+
+    .page-subtitle {
+
+        display:
+            none;
+
+    }
+
+
+    .topbar-user {
+
+        padding:
+            4px;
+
+    }
+
+
+    .main-footer {
+
+        margin:
+            5px 15px 18px;
+
+    }
+
+
+    .scroll-top {
+
+        right:
+            15px;
+
+        bottom:
+            15px;
+
+    }
+
+
+    .alert {
+
+        padding:
+            10px 12px;
+
+    }
+
+
+    .table-responsive {
+
+        border-radius:
+            10px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .topbar-left {
+
+        gap:
+            7px;
+
+    }
+
+
+    .page-title {
+
+        max-width:
+            145px;
+
+        font-size:
+            14px;
+
+    }
+
+
+    .mobile-menu-btn {
+
+        width:
+            36px;
+
+        height:
+            36px;
+
+    }
+
+
+    .topbar-avatar {
+
+        width:
+            29px;
+
+        height:
+            29px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+
+        scroll-behavior:
+            auto !important;
+
+    }
+
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    body {
+
+        background:
+            #fff !important;
+
+    }
+
+
+    .sidebar,
+    .topbar,
+    .main-footer,
+    .scroll-top,
+    .sidebar-overlay,
+    .page-loader,
+    .mobile-menu-btn,
+    .sidebar-toggle {
+
+        display:
+            none !important;
+
+    }
+
+
+    .main-wrapper {
+
+        margin-left:
+            0 !important;
+
+        width:
+            100% !important;
+
+    }
+
+
+    .main-content {
+
+        padding:
+            0 !important;
+
+        min-height:
+            auto !important;
+
+    }
+
+
+    .card {
+
+        box-shadow:
+            none !important;
+
+        border:
+            1px solid #ddd !important;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     ACCESSIBILITY
+========================================================= -->
+
+<a
+    href="#mainContent"
+    class="skip-link"
+>
+    Skip to main content
+</a>
+
+
+<!-- =========================================================
+     PAGE LOADER
+========================================================= -->
+
+<div
+    class="page-loader"
+    id="pageLoader"
+    aria-hidden="true"
+></div>
+
+
+{% if user.is_authenticated %}
+
+
+<!-- =========================================================
+     SIDEBAR OVERLAY
+========================================================= -->
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+    onclick="closeSidebar()"
+    aria-hidden="true"
+></div>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside
+    class="sidebar"
+    id="sidebar"
+    aria-label="Primary navigation"
+>
+
+
+<!-- =====================================================
+     BRAND
+====================================================== -->
+
+<a
+    href="{% url 'dashboard:dashboard' %}"
+    class="sidebar-brand"
+    title="Laboratory Management System"
+    aria-label="Laboratory Management System — Dashboard"
+>
+
+    <span
+        class="sidebar-brand-icon"
+        aria-hidden="true"
+    >
+
+        <i class="bi bi-flask"></i>
+
+    </span>
+
+    <span class="sidebar-brand-text">
+
+        Laboratory
+
+    </span>
+
+</a>
+
+
+<!-- =====================================================
+     NAVIGATION
+====================================================== -->
+
+<div class="sidebar-nav">
+
+
+    <!-- MAIN -->
+
+    <div class="nav-section-title">
+        Main
+    </div>
+
+
+    <a
+        href="{% url 'dashboard:dashboard' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Dashboard"
+    >
+
+        <i
+            class="bi bi-grid-1x2"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Dashboard
+        </span>
+
+    </a>
+
+
+    <!-- LABORATORY -->
+
+    <div class="nav-section-title">
+        Laboratory
+    </div>
+
+
+    <a
+        href="{% url 'instruments:instrument_list' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Instruments"
+    >
+
+        <i
+            class="bi bi-tools"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Instruments
+        </span>
+
+    </a>
+
+
+    <a
+        href="{% url 'locations:location_list' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Locations"
+    >
+
+        <i
+            class="bi bi-geo-alt"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Locations
+        </span>
+
+    </a>
+
+
+    <a
+        href="{% url 'suppliers:supplier_list' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Suppliers"
+    >
+
+        <i
+            class="bi bi-building"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Suppliers
+        </span>
+
+    </a>
+
+
+    <a
+        href="{% url 'calibrations:calibration_list' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Calibrations"
+    >
+
+        <i
+            class="bi bi-speedometer2"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Calibrations
+        </span>
+
+    </a>
+
+
+    <a
+        href="{% url 'maintenance:maintenance_list' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Maintenance"
+    >
+
+        <i
+            class="bi bi-wrench-adjustable"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Maintenance
+        </span>
+
+    </a>
+
+
+    <!-- REPORTS -->
+
+    <div class="nav-section-title">
+        Reports
+    </div>
+
+
+    <a
+        href="{% url 'reports:report_list' %}"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Reports"
+    >
+
+        <i
+            class="bi bi-bar-chart-line"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Reports
+        </span>
+
+    </a>
+
+
+    <!-- SYSTEM -->
+
+    <div class="nav-section-title">
+        System
+    </div>
+
+
+    <a
+        href="/admin/"
+        class="sidebar-link"
+        data-nav-link
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Administration"
+    >
+
+        <i
+            class="bi bi-shield-lock"
+            aria-hidden="true"
+        ></i>
+
+        <span>
+            Administration
+        </span>
+
+    </a>
+
+
+</div>
+
+
+<!-- =====================================================
+     USER
+====================================================== -->
+
+<div class="sidebar-user">
+
+    <div
+        class="user-box d-flex align-items-center gap-2"
+    >
+
+
+        <div
+            class="user-avatar"
+            aria-hidden="true"
+        >
+
+            {% if user.first_name %}
+
+                {{ user.first_name|first|upper }}
+
+            {% else %}
+
+                {{ user.username|first|upper }}
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="flex-grow-1 overflow-hidden">
+
+            <div class="user-name text-truncate">
+
+                {% if user.first_name %}
+
+                    {{ user.first_name }}
+                    {{ user.last_name }}
+
+                {% else %}
+
+                    {{ user.username }}
+
+                {% endif %}
+
+            </div>
+
+
+            {% if user.profile %}
+
+                <div class="user-role">
+
+                    {{ user.profile.get_role_display }}
+
+                </div>
+
+            {% else %}
+
+                <div class="user-role">
+                    Laboratory User
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <a
+            href="{% url 'accounts:logout' %}"
+            class="logout-btn"
+            title="Logout"
+            aria-label="Logout"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+        >
+
+            <i
+                class="bi bi-box-arrow-right"
+                aria-hidden="true"
+            ></i>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+</aside>
+
+
+<!-- =========================================================
+     MAIN WRAPPER
+========================================================= -->
+
+<div class="main-wrapper">
+
+
+<!-- =====================================================
+     TOPBAR
+====================================================== -->
+
+<header class="topbar">
+
+
+    <div class="topbar-left">
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            class="mobile-menu-btn"
+            type="button"
+            onclick="toggleSidebar()"
+            aria-label="Open navigation"
+            aria-controls="sidebar"
+            aria-expanded="false"
+        >
+
+            <i
+                class="bi bi-list fs-5"
+                aria-hidden="true"
+            ></i>
+
+        </button>
+
+
+        <!-- DESKTOP SIDEBAR TOGGLE -->
+
+        <button
+            class="sidebar-toggle"
+            type="button"
+            id="sidebarToggle"
+            title="Collapse sidebar"
+            aria-label="Collapse sidebar"
+            aria-controls="sidebar"
+            aria-expanded="true"
+        >
+
+            <i
+                class="bi bi-layout-sidebar-inset"
+                id="sidebarToggleIcon"
+                aria-hidden="true"
+            ></i>
+
+        </button>
+
+
+        <!-- PAGE TITLE -->
+
+        <div>
+
+            <div class="page-title">
+
+                {% block page_heading %}
+
+                    Laboratory Management System
+
+                {% endblock %}
+
+            </div>
+
+
+            <div class="page-subtitle">
+
+                Instrument & Laboratory Management
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         TOPBAR USER
+    ================================================== -->
+
+    <div
+        class="topbar-user"
+        aria-label="Current user"
+    >
+
+
+        <div
+            class="topbar-avatar"
+            aria-hidden="true"
+        >
+
+            {% if user.first_name %}
+
+                {{ user.first_name|first|upper }}
+
+            {% else %}
+
+                {{ user.username|first|upper }}
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="topbar-user-name">
+
+            {% if user.first_name %}
+
+                {{ user.first_name }}
+
+            {% else %}
+
+                {{ user.username }}
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+
+</header>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+====================================================== -->
+
+<main
+    class="main-content"
+    id="mainContent"
+    tabindex="-1"
+>
+
+
+    <!-- =================================================
+         MESSAGES
+    ================================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                role="alert"
+            >
+
+                <div class="d-flex align-items-center gap-2">
+
+                    {% if message.tags == 'success' %}
+
+                        <i
+                            class="bi bi-check-circle-fill"
+                            aria-hidden="true"
+                        ></i>
+
+                    {% elif message.tags == 'error' or message.tags == 'danger' %}
+
+                        <i
+                            class="bi bi-exclamation-circle-fill"
+                            aria-hidden="true"
+                        ></i>
+
+                    {% elif message.tags == 'warning' %}
+
+                        <i
+                            class="bi bi-exclamation-triangle-fill"
+                            aria-hidden="true"
+                        ></i>
+
+                    {% else %}
+
+                        <i
+                            class="bi bi-info-circle-fill"
+                            aria-hidden="true"
+                        ></i>
+
+                    {% endif %}
+
+
+                    <span>
+                        {{ message }}
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
+
+    {% block content %}
+
+    {% endblock %}
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="main-footer">
+
+
+    <div
+        class="d-flex justify-content-between align-items-center flex-wrap gap-2"
+    >
+
+
+        <div>
+
+            <i
+                class="bi bi-flask me-1"
+                aria-hidden="true"
+            ></i>
+
+            Laboratory Management System
+
+        </div>
+
+
+        <div>
+
+            <span>
+                © {% now "Y" %}
+            </span>
+
+            <span
+                class="mx-1"
+                aria-hidden="true"
+            >
+                •
+            </span>
+
+            <span>
+                Secure Laboratory Management
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</footer>
+
+
+</div>
+
+
+<!-- =========================================================
+     SCROLL TO TOP
+========================================================= -->
+
+<button
+    type="button"
+    class="scroll-top"
+    id="scrollTopButton"
+    aria-label="Scroll to top"
+    title="Back to top"
+>
+
+    <i
+        class="bi bi-arrow-up"
+        aria-hidden="true"
+    ></i>
+
+</button>
+
+
+{% else %}
+
+
+<!-- =========================================================
+     UNAUTHENTICATED CONTENT
+========================================================= -->
+
+{% block unauthenticated_content %}
+
+{% endblock %}
+
+
+{% endif %}
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<script>
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+(function () {
+
+    'use strict';
+
+
+    /* =====================================================
+       DOM READY
+    ===================================================== */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+
+            /* =================================================
+               ELEMENTS
+            ================================================= */
+
+            const sidebar =
+                document.getElementById('sidebar');
+
+            const overlay =
+                document.getElementById('sidebarOverlay');
+
+            const pageLoader =
+                document.getElementById('pageLoader');
+
+            const scrollTopButton =
+                document.getElementById('scrollTopButton');
+
+            const sidebarToggle =
+                document.getElementById('sidebarToggle');
+
+            const sidebarToggleIcon =
+                document.getElementById('sidebarToggleIcon');
+
+            const mobileMenuButton =
+                document.querySelector('.mobile-menu-btn');
+
+
+            /* =================================================
+               RESTORE SIDEBAR STATE
+            ================================================= */
+
+            const savedSidebarState =
+                localStorage.getItem(
+                    'labSidebarCollapsed'
+                );
+
+
+            if (
+                savedSidebarState === 'true' &&
+                window.innerWidth >= 992
+            ) {
+
+                document.body.classList.add(
+                    'sidebar-collapsed'
+                );
+
+            }
+
+
+            updateSidebarToggleIcon();
+
+
+            /* =================================================
+               ACTIVE SIDEBAR LINK
+            ================================================= */
+
+            const currentPath =
+                normalizePath(
+                    window.location.pathname
+                );
+
+
+            document
+                .querySelectorAll('[data-nav-link]')
+                .forEach(function (link) {
+
+
+                    const linkPath =
+                        normalizePath(
+                            new URL(
+                                link.href,
+                                window.location.origin
+                            ).pathname
+                        );
+
+
+                    const isExactMatch =
+                        currentPath === linkPath;
+
+
+                    const isChildPath =
+                        linkPath !== '/' &&
+                        currentPath.startsWith(
+                            linkPath + '/'
+                        );
+
+
+                    if (
+                        isExactMatch ||
+                        isChildPath
+                    ) {
+
+                        link.classList.add(
+                            'active'
+                        );
+
+                        link.setAttribute(
+                            'aria-current',
+                            'page'
+                        );
+
+                    }
+
+
+                });
+
+
+            /* =================================================
+               BOOTSTRAP TOOLTIPS
+            ================================================= */
+
+            initializeTooltips();
+
+
+            /* =================================================
+               RIPPLE EFFECT
+            ================================================= */
+
+            initializeRipples();
+
+
+            /* =================================================
+               SIDEBAR TOGGLE
+            ================================================= */
+
+            if (sidebarToggle) {
+
+                sidebarToggle.addEventListener(
+                    'click',
+                    function () {
+
+
+                        document.body.classList.toggle(
+                            'sidebar-collapsed'
+                        );
+
+
+                        const collapsed =
+                            document.body.classList.contains(
+                                'sidebar-collapsed'
+                            );
+
+
+                        try {
+
+                            localStorage.setItem(
+                                'labSidebarCollapsed',
+                                collapsed
+                            );
+
+                        } catch (error) {
+
+                            /* Storage may be unavailable. */
+
+                        }
+
+
+                        updateSidebarToggleIcon();
+
+
+                        window.setTimeout(
+                            initializeTooltips,
+                            260
+                        );
+
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               SCROLL TO TOP
+            ================================================= */
+
+            function updateScrollButton() {
+
+                if (!scrollTopButton) {
+
+                    return;
+
+                }
+
+
+                if (window.scrollY > 300) {
+
+                    scrollTopButton.classList.add(
+                        'show'
+                    );
+
+                } else {
+
+                    scrollTopButton.classList.remove(
+                        'show'
+                    );
+
+                }
+
+            }
+
+
+            window.addEventListener(
+                'scroll',
+                updateScrollButton,
+                {
+                    passive: true
+                }
+            );
+
+
+            updateScrollButton();
+
+
+            if (scrollTopButton) {
+
+                scrollTopButton.addEventListener(
+                    'click',
+                    function () {
+
+                        window.scrollTo({
+
+                            top: 0,
+
+                            behavior:
+                                prefersReducedMotion()
+                                    ? 'auto'
+                                    : 'smooth'
+
+                        });
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               PAGE NAVIGATION LOADER
+            ================================================= */
+
+            document
+                .querySelectorAll(
+                    'a[href]'
+                )
+                .forEach(function (link) {
+
+
+                    link.addEventListener(
+                        'click',
+                        function (event) {
+
+
+                            if (
+                                shouldIgnoreNavigation(
+                                    this,
+                                    event
+                                )
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            if (pageLoader) {
+
+                                pageLoader.classList.add(
+                                    'active'
+                                );
+
+                            }
+
+
+                        }
+                    );
+
+                });
+
+
+            /* =================================================
+               AUTO DISMISS SUCCESS MESSAGES
+            ================================================= */
+
+            document
+                .querySelectorAll(
+                    '.alert-success'
+                )
+                .forEach(function (alert) {
+
+
+                    window.setTimeout(
+                        function () {
+
+
+                            if (
+                                document.body.contains(
+                                    alert
+                                )
+                            ) {
+
+                                const bsAlert =
+                                    bootstrap.Alert
+                                        .getOrCreateInstance(
+                                            alert
+                                        );
+
+
+                                bsAlert.close();
+
+                            }
+
+
+                        },
+                        5000
+                    );
+
+                });
+
+
+            /* =================================================
+               ESCAPE CLOSES MOBILE SIDEBAR
+            ================================================= */
+
+            document.addEventListener(
+                'keydown',
+                function (event) {
+
+
+                    if (
+                        event.key === 'Escape'
+                    ) {
+
+                        closeSidebar();
+
+                    }
+
+
+                }
+            );
+
+
+            /* =================================================
+               KEYBOARD SHORTCUT
+               Ctrl + B / Cmd + B
+               Toggle sidebar
+            ================================================= */
+
+            document.addEventListener(
+                'keydown',
+                function (event) {
+
+
+                    if (
+                        (
+                            event.ctrlKey ||
+                            event.metaKey
+                        ) &&
+                        event.key.toLowerCase() === 'b'
+                    ) {
+
+
+                        if (
+                            window.innerWidth >= 992
+                        ) {
+
+                            event.preventDefault();
+
+
+                            if (sidebarToggle) {
+
+                                sidebarToggle.click();
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            /* =================================================
+               CLOSE MOBILE SIDEBAR ON NAVIGATION
+            ================================================= */
+
+            document.addEventListener(
+                'click',
+                function (event) {
+
+
+                    const link =
+                        event.target.closest(
+                            '.sidebar-link'
+                        );
+
+
+                    if (!link) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        window.innerWidth <= 991
+                    ) {
+
+                        closeSidebar();
+
+                    }
+
+
+                }
+            );
+
+
+            /* =================================================
+               MOBILE MENU ACCESSIBILITY
+            ================================================= */
+
+            if (mobileMenuButton) {
+
+                mobileMenuButton.addEventListener(
+                    'click',
+                    function () {
+
+                        window.setTimeout(
+                            function () {
+
+                                const isOpen =
+                                    sidebar &&
+                                    sidebar.classList.contains(
+                                        'show'
+                                    );
+
+
+                                mobileMenuButton.setAttribute(
+                                    'aria-expanded',
+                                    isOpen
+                                );
+
+                            },
+                            0
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               FORM SUBMISSION LOADER
+               Only activates for real same-origin forms.
+            ================================================= */
+
+            document
+                .querySelectorAll('form')
+                .forEach(function (form) {
+
+
+                    form.addEventListener(
+                        'submit',
+                        function () {
+
+
+                            if (
+                                form.hasAttribute(
+                                    'data-no-loader'
+                                )
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            if (pageLoader) {
+
+                                pageLoader.classList.add(
+                                    'active'
+                                );
+
+                            }
+
+
+                        }
+                    );
+
+                });
+
+
+            /* =================================================
+               MAIN CONTENT KEYBOARD FOCUS
+            ================================================= */
+
+            const mainContent =
+                document.getElementById(
+                    'mainContent'
+                );
+
+
+            if (
+                mainContent &&
+                window.location.hash === '#mainContent'
+            ) {
+
+                mainContent.focus();
+
+            }
+
+
+        }
+    );
+
+
+    /* =========================================================
+       SIDEBAR TOGGLE ICON
+    ========================================================= */
+
+    window.updateSidebarToggleIcon =
+        function () {
+
+
+            const icon =
+                document.getElementById(
+                    'sidebarToggleIcon'
+                );
+
+            const button =
+                document.getElementById(
+                    'sidebarToggle'
+                );
+
+
+            if (!icon || !button) {
+
+                return;
+
+            }
+
+
+            const collapsed =
+                document.body.classList.contains(
+                    'sidebar-collapsed'
+                );
+
+
+            if (collapsed) {
+
+                icon.className =
+                    'bi bi-layout-sidebar-inset-reverse';
+
+
+                button.title =
+                    'Expand sidebar';
+
+
+                button.setAttribute(
+                    'aria-label',
+                    'Expand sidebar'
+                );
+
+
+                button.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+            } else {
+
+                icon.className =
+                    'bi bi-layout-sidebar-inset';
+
+
+                button.title =
+                    'Collapse sidebar';
+
+
+                button.setAttribute(
+                    'aria-label',
+                    'Collapse sidebar'
+                );
+
+
+                button.setAttribute(
+                    'aria-expanded',
+                    'true'
+                );
+
+            }
+
+
+        };
+
+
+    /* =========================================================
+       TOOLTIP INITIALIZATION
+    ========================================================= */
+
+    window.initializeTooltips =
+        function () {
+
+
+            if (
+                typeof bootstrap === 'undefined'
+            ) {
+
+                return;
+
+            }
+
+
+            document
+                .querySelectorAll(
+                    '[data-bs-toggle="tooltip"]'
+                )
+                .forEach(function (element) {
+
+
+                    const existing =
+                        bootstrap.Tooltip.getInstance(
+                            element
+                        );
+
+
+                    if (existing) {
+
+                        existing.dispose();
+
+                    }
+
+
+                    new bootstrap.Tooltip(
+                        element,
+                        {
+                            trigger:
+                                'hover focus'
+                        }
+                    );
+
+
+                });
+
+
+        };
+
+
+    /* =========================================================
+       RIPPLE INITIALIZATION
+    ========================================================= */
+
+    function initializeRipples() {
+
+
+        if (prefersReducedMotion()) {
+
+            return;
+
+        }
+
+
+        document
+            .querySelectorAll(
+                '.btn, .sidebar-link, .sidebar-toggle, .mobile-menu-btn'
+            )
+            .forEach(function (element) {
+
+
+                element.addEventListener(
+                    'click',
+                    function (event) {
+
+
+                        if (
+                            event.ctrlKey ||
+                            event.metaKey ||
+                            event.shiftKey ||
+                            event.altKey
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const rect =
+                            this.getBoundingClientRect();
+
+
+                        const ripple =
+                            document.createElement(
+                                'span'
+                            );
+
+
+                        const size =
+                            Math.max(
+                                rect.width,
+                                rect.height
+                            );
+
+
+                        ripple.style.width =
+                            size + 'px';
+
+                        ripple.style.height =
+                            size + 'px';
+
+
+                        ripple.style.left =
+                            (
+                                event.clientX -
+                                rect.left -
+                                size / 2
+                            ) + 'px';
+
+
+                        ripple.style.top =
+                            (
+                                event.clientY -
+                                rect.top -
+                                size / 2
+                            ) + 'px';
+
+
+                        ripple.classList.add(
+                            'ripple'
+                        );
+
+
+                        this.style.position =
+                            'relative';
+
+                        this.style.overflow =
+                            'hidden';
+
+
+                        this.appendChild(
+                            ripple
+                        );
+
+
+                        window.setTimeout(
+                            function () {
+
+                                ripple.remove();
+
+                            },
+                            600
+                        );
+
+
+                    }
+                );
+
+            });
+
+
+    }
+
+
+    /* =========================================================
+       MOBILE SIDEBAR
+    ========================================================= */
+
+    window.toggleSidebar =
+        function () {
+
+
+            const sidebar =
+                document.getElementById(
+                    'sidebar'
+                );
+
+            const overlay =
+                document.getElementById(
+                    'sidebarOverlay'
+                );
+
+            const mobileButton =
+                document.querySelector(
+                    '.mobile-menu-btn'
+                );
+
+
+            if (!sidebar) {
+
+                return;
+
+            }
+
+
+            const isOpening =
+                !sidebar.classList.contains(
+                    'show'
+                );
+
+
+            sidebar.classList.toggle(
+                'show',
+                isOpening
+            );
+
+
+            if (overlay) {
+
+                overlay.classList.toggle(
+                    'show',
+                    isOpening
+                );
+
+            }
+
+
+            document.body.classList.toggle(
+                'sidebar-open',
+                isOpening
+            );
+
+
+            if (mobileButton) {
+
+                mobileButton.setAttribute(
+                    'aria-expanded',
+                    isOpening
+                );
+
+            }
+
+
+        };
+
+
+    /* =========================================================
+       CLOSE SIDEBAR
+    ========================================================= */
+
+    window.closeSidebar =
+        function () {
+
+
+            const sidebar =
+                document.getElementById(
+                    'sidebar'
+                );
+
+            const overlay =
+                document.getElementById(
+                    'sidebarOverlay'
+                );
+
+            const mobileButton =
+                document.querySelector(
+                    '.mobile-menu-btn'
+                );
+
+
+            if (sidebar) {
+
+                sidebar.classList.remove(
+                    'show'
+                );
+
+            }
+
+
+            if (overlay) {
+
+                overlay.classList.remove(
+                    'show'
+                );
+
+            }
+
+
+            document.body.classList.remove(
+                'sidebar-open'
+            );
+
+
+            if (mobileButton) {
+
+                mobileButton.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+            }
+
+
+        };
+
+
+    /* =========================================================
+       HIDE PAGE LOADER AFTER PAGE LOAD
+    ========================================================= */
+
+    window.addEventListener(
+        'load',
+        function () {
+
+
+            const loader =
+                document.getElementById(
+                    'pageLoader'
+                );
+
+
+            if (loader) {
+
+                window.setTimeout(
+                    function () {
+
+                        loader.classList.remove(
+                            'active'
+                        );
+
+                    },
+                    150
+                );
+
+            }
+
+
+        }
+    );
+
+
+    /* =========================================================
+       PREVENT LOADER FROM STUCK STATE
+    ========================================================= */
+
+    window.addEventListener(
+        'pageshow',
+        function () {
+
+
+            const loader =
+                document.getElementById(
+                    'pageLoader'
+                );
+
+
+            if (loader) {
+
+                loader.classList.remove(
+                    'active'
+                );
+
+            }
+
+
+        }
+    );
+
+
+    /* =========================================================
+       RESPONSIVE SIDEBAR RESET
+    ========================================================= */
+
+    let resizeTimer = null;
+
+
+    window.addEventListener(
+        'resize',
+        function () {
+
+
+            window.clearTimeout(
+                resizeTimer
+            );
+
+
+            resizeTimer =
+                window.setTimeout(
+                    function () {
+
+
+                        if (
+                            window.innerWidth > 991
+                        ) {
+
+                            closeSidebar();
+
+                        }
+
+
+                    },
+                    100
+                );
+
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function normalizePath(path) {
+
+        if (!path) {
+
+            return '/';
+
+        }
+
+
+        const normalized =
+            path.replace(
+                /\/+$/,
+                ''
+            );
+
+
+        return normalized || '/';
+
+    }
+
+
+    function prefersReducedMotion() {
+
+        return window.matchMedia &&
+            window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+            ).matches;
+
+    }
+
+
+    function shouldIgnoreNavigation(
+        link,
+        event
+    ) {
+
+
+        const href =
+            link.getAttribute(
+                'href'
+            );
+
+
+        if (!href) {
+
+            return true;
+
+        }
+
+
+        if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.shiftKey ||
+            event.altKey
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            href.startsWith('#') ||
+            href.startsWith('javascript:')
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            href.startsWith('mailto:') ||
+            href.startsWith('tel:')
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            link.target === '_blank' ||
+            link.hasAttribute('download')
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            link.dataset.noLoader !== undefined
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            link.hostname &&
+            link.hostname !==
+                window.location.hostname
+        ) {
+
+            return true;
+
+        }
+
+
+        return false;
+
+    }
+
+
+})();
+
+
+/* =========================================================
+   FINAL FALLBACK — HIDE LOADER
+========================================================= */
+
+window.addEventListener(
+    'beforeunload',
+    function () {
+
+        const loader =
+            document.getElementById(
+                'pageLoader'
+            );
+
+
+        if (loader) {
+
+            loader.classList.remove(
+                'active'
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

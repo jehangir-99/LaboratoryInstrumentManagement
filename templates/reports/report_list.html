@@ -1,0 +1,1753 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reports - Laboratory Management System
+{% endblock %}
+
+{% block page_heading %}
+Reports
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   REPORT HEADER
+========================================================= */
+
+.report-header {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.report-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: #e8f6ee;
+    color: #198754;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.report-stat-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    height: 100%;
+    transition: .2s ease;
+}
+
+.report-stat-card:hover {
+    border-color: #cfe8d9;
+    transform: translateY(-1px);
+}
+
+.report-stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #f0f8f3;
+    color: #198754;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.report-stat-label {
+    color: #6b7280;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.report-stat-value {
+    color: #1f2937;
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0;
+}
+
+
+/* =========================================================
+   REPORT SECTIONS
+========================================================= */
+
+.report-section {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.report-section-header {
+    padding: 17px 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.report-section-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.report-section-body {
+    padding: 20px;
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.report-filters {
+    background: #f8faf9;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 6px;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper .form-control {
+    padding-right: 40px;
+}
+
+.clear-search {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: #9ca3af;
+    display: none;
+    z-index: 5;
+}
+
+.clear-search:hover {
+    color: #198754;
+}
+
+
+/* =========================================================
+   STATUS BOXES
+========================================================= */
+
+.status-box {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 17px;
+    height: 100%;
+}
+
+.status-box-label {
+    color: #6b7280;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.status-box-value {
+    font-size: 23px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.status-service {
+    border-left: 4px solid #198754;
+}
+
+.status-maintenance {
+    border-left: 4px solid #ffc107;
+}
+
+.status-out {
+    border-left: 4px solid #dc3545;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.report-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.report-table {
+    min-width: 1050px;
+    margin-bottom: 0;
+}
+
+.report-table thead th {
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+}
+
+.report-table thead th:first-child {
+    cursor: default;
+}
+
+.report-table thead th:hover {
+    background: #eef7f1;
+}
+
+.report-table thead th:first-child:hover {
+    background: #f8f9fa;
+}
+
+.report-table tbody td {
+    white-space: nowrap;
+}
+
+.sort-icon {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-left: 4px;
+}
+
+.sort-icon.active {
+    color: #198754;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.report-empty {
+    padding: 55px 20px !important;
+    text-align: center;
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 10mm;
+    }
+
+    html,
+    body {
+        width: 100% !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 10px !important;
+    }
+
+    .sidebar,
+    .topbar,
+    .main-footer,
+    .sidebar-overlay,
+    .mobile-menu-btn,
+    .no-print {
+        display: none !important;
+    }
+
+    .main-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .main-content {
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .report-header {
+        border: none !important;
+        padding: 0 0 12px 0 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .report-icon {
+        display: none !important;
+    }
+
+    .report-header h2 {
+        font-size: 20px !important;
+    }
+
+    .report-header p {
+        font-size: 10px !important;
+    }
+
+    .report-stat-card {
+        border: 1px solid #cccccc !important;
+        box-shadow: none !important;
+        padding: 10px !important;
+    }
+
+    .report-stat-value {
+        font-size: 18px !important;
+    }
+
+    .report-stat-icon {
+        display: none !important;
+    }
+
+    .report-section {
+        border: 1px solid #cccccc !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        break-inside: avoid;
+        margin-bottom: 12px !important;
+    }
+
+    .report-section-header {
+        padding: 8px 10px !important;
+    }
+
+    .report-section-body {
+        padding: 10px !important;
+    }
+
+    .report-table-wrapper {
+        overflow: visible !important;
+        width: 100% !important;
+    }
+
+    .report-table {
+        width: 100% !important;
+        min-width: 0 !important;
+        table-layout: fixed !important;
+        font-size: 8px !important;
+    }
+
+    .report-table th,
+    .report-table td {
+        padding: 4px 5px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    .report-table thead th {
+        background: #eeeeee !important;
+        color: #000000 !important;
+    }
+
+    .report-table th:nth-child(1),
+    .report-table td:nth-child(1) {
+        width: 4%;
+    }
+
+    .report-table th:nth-child(2),
+    .report-table td:nth-child(2) {
+        width: 12%;
+    }
+
+    .report-table th:nth-child(3),
+    .report-table td:nth-child(3) {
+        width: 15%;
+    }
+
+    .report-table th:nth-child(4),
+    .report-table td:nth-child(4) {
+        width: 10%;
+    }
+
+    .report-table th:nth-child(5),
+    .report-table td:nth-child(5) {
+        width: 10%;
+    }
+
+    .report-table th:nth-child(6),
+    .report-table td:nth-child(6) {
+        width: 15%;
+    }
+
+    .report-table th:nth-child(7),
+    .report-table td:nth-child(7) {
+        width: 10%;
+    }
+
+    .report-table th:nth-child(8),
+    .report-table td:nth-child(8) {
+        width: 14%;
+    }
+
+    .badge {
+        background: transparent !important;
+        color: #000000 !important;
+        border: 1px solid #999999 !important;
+        font-size: 8px !important;
+    }
+
+    a {
+        color: #000000 !important;
+        text-decoration: none !important;
+    }
+
+    .page-break {
+        break-before: page;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+    .report-header {
+        padding: 18px;
+    }
+
+    .report-header .d-flex {
+        align-items: flex-start !important;
+        flex-direction: column;
+    }
+
+    .report-table {
+        min-width: 1050px;
+    }
+
+}
+
+</style>
+
+<!-- =========================================================
+     REPORT HEADER
+========================================================= -->
+
+<div class="report-header">
+
+
+<div class="d-flex justify-content-between align-items-center gap-3">
+
+    <div class="d-flex align-items-center gap-3">
+
+        <div class="report-icon">
+            <i class="bi bi-bar-chart-line"></i>
+        </div>
+
+        <div>
+
+            <h2 class="mb-1">
+                Laboratory Report
+            </h2>
+
+            <p class="text-muted mb-0">
+                Laboratory instrument management overview
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="d-flex gap-2 flex-wrap no-print">
+
+        <button
+            type="button"
+            onclick="window.print()"
+            class="btn btn-primary"
+        >
+            <i class="bi bi-printer me-1"></i>
+            Print Report
+        </button>
+
+        <a
+            href="{% url 'dashboard:dashboard' %}"
+            class="btn btn-outline-secondary"
+        >
+            <i class="bi bi-arrow-left me-1"></i>
+            Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="d-none d-print-block mt-3">
+
+    <small>
+        Generated:
+        {% now "d M Y, H:i" %}
+    </small>
+
+    <br>
+
+    <small>
+        Prepared by:
+        {% if user.get_full_name %}
+            {{ user.get_full_name }}
+        {% else %}
+            {{ user.username }}
+        {% endif %}
+    </small>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     SUMMARY CARDS
+========================================================= -->
+
+<div class="row g-4 mb-4">
+
+
+<div class="col-md-4">
+
+    <div class="report-stat-card">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+            <div>
+
+                <div class="report-stat-label">
+                    Total Instruments
+                </div>
+
+                <p class="report-stat-value">
+                    {{ total_instruments }}
+                </p>
+
+            </div>
+
+            <div class="report-stat-icon">
+                <i class="bi bi-tools"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="col-md-4">
+
+    <div class="report-stat-card">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+            <div>
+
+                <div class="report-stat-label">
+                    In Service
+                </div>
+
+                <p class="report-stat-value text-success">
+                    {{ in_service }}
+                </p>
+
+            </div>
+
+            <div class="report-stat-icon">
+                <i class="bi bi-check-circle"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="col-md-4">
+
+    <div class="report-stat-card">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+            <div>
+
+                <div class="report-stat-label">
+                    In Maintenance
+                </div>
+
+                <p class="report-stat-value text-warning">
+                    {{ in_maintenance }}
+                </p>
+
+            </div>
+
+            <div class="report-stat-icon">
+                <i class="bi bi-wrench"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     STATUS OVERVIEW
+========================================================= -->
+
+<div class="report-section">
+
+
+<div class="report-section-header">
+
+    <h5 class="report-section-title">
+
+        <i class="bi bi-activity me-2 text-success"></i>
+
+        Instrument Status Overview
+
+    </h5>
+
+</div>
+
+
+<div class="report-section-body">
+
+    <div class="row g-3">
+
+        <div class="col-md-4">
+
+            <div class="status-box status-service">
+
+                <div class="status-box-label">
+                    In Service
+                </div>
+
+                <p class="status-box-value text-success">
+                    {{ in_service }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="status-box status-maintenance">
+
+                <div class="status-box-label">
+                    In Maintenance
+                </div>
+
+                <p class="status-box-value text-warning">
+                    {{ in_maintenance }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="status-box status-out">
+
+                <div class="status-box-label">
+                    Out of Service
+                </div>
+
+                <p class="status-box-value text-danger">
+                    {{ out_of_service }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     INSTRUMENT REGISTER
+========================================================= -->
+
+<div class="report-section">
+
+
+<div class="report-section-header">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <div>
+
+            <h5 class="report-section-title">
+
+                <i class="bi bi-list-ul me-2 text-success"></i>
+
+                Instrument Register
+
+            </h5>
+
+            <small class="text-muted">
+                Search, filter and sort laboratory instruments
+            </small>
+
+        </div>
+
+
+        <span
+            id="visibleRecordCount"
+            class="badge bg-light text-dark no-print"
+        >
+            {{ total_instruments }} Records
+        </span>
+
+    </div>
+
+
+    <!-- =================================================
+         FILTER BAR
+    ================================================== -->
+
+    <div class="report-filters mt-3 no-print">
+
+        <div class="row g-3 align-items-end">
+
+            <!-- SEARCH -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <label
+                    for="reportSearch"
+                    class="filter-label"
+                >
+                    Search Instruments
+                </label>
+
+                <div class="input-group search-wrapper">
+
+                    <span class="input-group-text bg-white">
+                        <i class="bi bi-search"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        id="reportSearch"
+                        class="form-control"
+                        placeholder="Search code, designation, brand, model..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        type="button"
+                        id="clearSearch"
+                        class="clear-search"
+                        title="Clear search"
+                    >
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="col-lg-2 col-md-3">
+
+                <label
+                    for="statusFilter"
+                    class="filter-label"
+                >
+                    Status
+                </label>
+
+                <select
+                    id="statusFilter"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="in_service">
+                        In Service
+                    </option>
+
+                    <option value="maintenance">
+                        Maintenance
+                    </option>
+
+                    <option value="out_of_service">
+                        Out of Service
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- SORT -->
+
+            <div class="col-lg-3 col-md-3">
+
+                <label
+                    for="sortSelect"
+                    class="filter-label"
+                >
+                    Sort By
+                </label>
+
+                <select
+                    id="sortSelect"
+                    class="form-select"
+                >
+
+                    <option value="0">
+                        Internal Code
+                    </option>
+
+                    <option value="1">
+                        Designation
+                    </option>
+
+                    <option value="2">
+                        Brand
+                    </option>
+
+                    <option value="3">
+                        Model
+                    </option>
+
+                    <option value="4">
+                        Serial Number
+                    </option>
+
+                    <option value="5">
+                        Status
+                    </option>
+
+                    <option value="6">
+                        Location
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DIRECTION -->
+
+            <div class="col-lg-2 col-md-3">
+
+                <label
+                    for="sortDirection"
+                    class="filter-label"
+                >
+                    Direction
+                </label>
+
+                <select
+                    id="sortDirection"
+                    class="form-select"
+                >
+
+                    <option value="asc">
+                        A → Z
+                    </option>
+
+                    <option value="desc">
+                        Z → A
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- RESET -->
+
+            <div class="col-lg-1 col-md-3">
+
+                <button
+                    type="button"
+                    id="resetFilters"
+                    class="btn btn-outline-secondary w-100"
+                    title="Reset filters"
+                >
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TABLE
+====================================================== -->
+
+<div class="report-section-body p-0">
+
+    <div class="report-table-wrapper">
+
+        <table
+            class="table table-hover align-middle report-table"
+            id="instrumentReportTable"
+        >
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th>
+                        #
+                    </th>
+
+                    <th data-sort-column="0">
+                        Internal Code
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                    <th data-sort-column="1">
+                        Designation
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                    <th data-sort-column="2">
+                        Brand
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                    <th data-sort-column="3">
+                        Model
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                    <th data-sort-column="4">
+                        Serial Number
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                    <th data-sort-column="5">
+                        Status
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                    <th data-sort-column="6">
+                        Location
+                        <i class="bi bi-arrow-down-up sort-icon"></i>
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="instrumentTableBody">
+
+                {% for instrument in instruments %}
+
+                <tr
+                    data-search="{{ instrument.internal_code|default:'' }} {{ instrument.designation|default:'' }} {{ instrument.brand|default:'' }} {{ instrument.model|default:'' }} {{ instrument.serial_number|default:'' }} {% if instrument.location %}{{ instrument.location.name }}{% endif %}"
+                    data-status="{{ instrument.status }}"
+                >
+
+                    <td class="row-number">
+                        {{ forloop.counter }}
+                    </td>
+
+
+                    <td>
+                        <strong>
+                            {{ instrument.internal_code|default:"—" }}
+                        </strong>
+                    </td>
+
+
+                    <td>
+                        {{ instrument.designation|default:"—" }}
+                    </td>
+
+
+                    <td>
+                        {{ instrument.brand|default:"—" }}
+                    </td>
+
+
+                    <td>
+                        {{ instrument.model|default:"—" }}
+                    </td>
+
+
+                    <td>
+                        {{ instrument.serial_number|default:"—" }}
+                    </td>
+
+
+                    <td>
+
+                        {% if instrument.status == 'in_service' %}
+
+                            <span class="badge bg-success">
+                                {{ instrument.get_status_display }}
+                            </span>
+
+                        {% elif instrument.status == 'maintenance' %}
+
+                            <span class="badge bg-warning text-dark">
+                                {{ instrument.get_status_display }}
+                            </span>
+
+                        {% elif instrument.status == 'out_of_service' %}
+
+                            <span class="badge bg-danger">
+                                {{ instrument.get_status_display }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-secondary">
+                                {{ instrument.get_status_display }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if instrument.location %}
+
+                            {{ instrument.location.name }}
+
+                        {% else %}
+
+                            <span class="text-muted">
+                                —
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr id="emptyDatabaseRow">
+
+                    <td
+                        colspan="8"
+                        class="report-empty"
+                    >
+
+                        <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+
+                        No instruments are available.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+
+                <!-- DYNAMIC NO RESULTS -->
+
+                <tr
+                    id="noResultsRow"
+                    style="display: none;"
+                >
+
+                    <td
+                        colspan="8"
+                        class="report-empty"
+                    >
+
+                        <i class="bi bi-search fs-2 d-block mb-2"></i>
+
+                        <strong>
+                            No instruments found
+                        </strong>
+
+                        <div class="small mt-1">
+                            Try changing your search or filter.
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     REPORT FOOTER
+========================================================= -->
+
+<div class="text-muted small mt-4 no-print">
+
+
+<div class="d-flex justify-content-between flex-wrap gap-2">
+
+    <span>
+        Laboratory Management System
+    </span>
+
+    <span>
+        Report generated:
+        {% now "d M Y, H:i" %}
+    </span>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     FILTER + SORT JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const searchInput =
+        document.getElementById('reportSearch');
+
+    const clearSearch =
+        document.getElementById('clearSearch');
+
+    const statusFilter =
+        document.getElementById('statusFilter');
+
+    const sortSelect =
+        document.getElementById('sortSelect');
+
+    const sortDirection =
+        document.getElementById('sortDirection');
+
+    const resetButton =
+        document.getElementById('resetFilters');
+
+    const table =
+        document.getElementById('instrumentReportTable');
+
+    const tbody =
+        document.getElementById('instrumentTableBody');
+
+    const countDisplay =
+        document.getElementById('visibleRecordCount');
+
+    const noResultsRow =
+        document.getElementById('noResultsRow');
+
+
+    if (
+        !searchInput ||
+        !statusFilter ||
+        !sortSelect ||
+        !sortDirection ||
+        !resetButton ||
+        !table ||
+        !tbody
+    ) {
+        return;
+    }
+
+
+    /* =====================================================
+       NORMALIZE TEXT
+    ===================================================== */
+
+    function normalizeText(value) {
+
+        return String(value || '')
+            .toLowerCase()
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+    }
+
+
+    /* =====================================================
+       GET DATABASE ROWS
+    ===================================================== */
+
+    function getRows() {
+
+        return Array.from(
+            tbody.querySelectorAll(
+                'tr[data-status]'
+            )
+        );
+
+    }
+
+
+    /* =====================================================
+       UPDATE ROW NUMBERS
+    ===================================================== */
+
+    function updateRowNumbers() {
+
+        const visibleRows =
+            getRows().filter(
+                row => !row.hidden
+            );
+
+        visibleRows.forEach(
+            function (row, index) {
+
+                const numberCell =
+                    row.querySelector('.row-number');
+
+                if (numberCell) {
+
+                    numberCell.textContent =
+                        index + 1;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       UPDATE COUNT
+    ===================================================== */
+
+    function updateRecordCount() {
+
+        if (!countDisplay) {
+            return;
+        }
+
+        const visibleRows =
+            getRows().filter(
+                row => !row.hidden
+            );
+
+        const count =
+            visibleRows.length;
+
+        countDisplay.textContent =
+            count +
+            (
+                count === 1
+                    ? ' Record'
+                    : ' Records'
+            );
+
+    }
+
+
+    /* =====================================================
+       SEARCH + STATUS FILTER
+    ===================================================== */
+
+    function applyFilters() {
+
+        const search =
+            normalizeText(
+                searchInput.value
+            );
+
+        const selectedStatus =
+            statusFilter.value;
+
+
+        let visibleCount = 0;
+
+
+        getRows().forEach(
+            function (row) {
+
+                const rowSearch =
+                    normalizeText(
+                        row.getAttribute(
+                            'data-search'
+                        )
+                    );
+
+                const rowStatus =
+                    row.getAttribute(
+                        'data-status'
+                    ) || '';
+
+
+                const matchesSearch =
+                    search === '' ||
+                    rowSearch.indexOf(search) !== -1;
+
+
+                const matchesStatus =
+                    selectedStatus === '' ||
+                    rowStatus === selectedStatus;
+
+
+                if (
+                    matchesSearch &&
+                    matchesStatus
+                ) {
+
+                    row.hidden = false;
+
+                    visibleCount++;
+
+                } else {
+
+                    row.hidden = true;
+
+                }
+
+            }
+        );
+
+
+        /* Update clear-search button */
+
+        if (clearSearch) {
+
+            clearSearch.style.display =
+                searchInput.value.length > 0
+                    ? 'block'
+                    : 'none';
+
+        }
+
+
+        /* No results */
+
+        if (noResultsRow) {
+
+            noResultsRow.hidden =
+                visibleCount !== 0;
+
+        }
+
+
+        updateRowNumbers();
+
+        updateRecordCount();
+
+    }
+
+
+    /* =====================================================
+       SORT TABLE
+    ===================================================== */
+
+    function sortTable(
+        columnIndex,
+        direction
+    ) {
+
+        const rows =
+            getRows();
+
+
+        rows.sort(
+            function (a, b) {
+
+                /*
+                 * Column index in the table:
+                 *
+                 * 0 = #
+                 * 1 = Internal Code
+                 * 2 = Designation
+                 * 3 = Brand
+                 * 4 = Model
+                 * 5 = Serial
+                 * 6 = Status
+                 * 7 = Location
+                 *
+                 * The select uses 0-6,
+                 * so add 1 here.
+                 */
+
+                const aCell =
+                    a.cells[columnIndex + 1];
+
+                const bCell =
+                    b.cells[columnIndex + 1];
+
+
+                if (!aCell || !bCell) {
+                    return 0;
+                }
+
+
+                const aText =
+                    normalizeText(
+                        aCell.textContent
+                    );
+
+                const bText =
+                    normalizeText(
+                        bCell.textContent
+                    );
+
+
+                const comparison =
+                    aText.localeCompare(
+                        bText,
+                        undefined,
+                        {
+                            numeric: true,
+                            sensitivity: 'base'
+                        }
+                    );
+
+
+                return direction === 'asc'
+                    ? comparison
+                    : -comparison;
+
+            }
+        );
+
+
+        rows.forEach(
+            function (row) {
+
+                tbody.appendChild(row);
+
+            }
+        );
+
+
+        updateRowNumbers();
+
+    }
+
+
+    /* =====================================================
+       UPDATE SORT ICONS
+    ===================================================== */
+
+    function updateSortIcons() {
+
+        table.querySelectorAll(
+            'th[data-sort-column]'
+        ).forEach(
+            function (header) {
+
+                const icon =
+                    header.querySelector(
+                        '.sort-icon'
+                    );
+
+                if (icon) {
+
+                    icon.className =
+                        'bi bi-arrow-down-up sort-icon';
+
+                }
+
+            }
+        );
+
+
+        const selectedColumn =
+            sortSelect.value;
+
+
+        const selectedHeader =
+            table.querySelector(
+                'th[data-sort-column="' +
+                selectedColumn +
+                '"]'
+            );
+
+
+        if (!selectedHeader) {
+            return;
+        }
+
+
+        const icon =
+            selectedHeader.querySelector(
+                '.sort-icon'
+            );
+
+
+        if (!icon) {
+            return;
+        }
+
+
+        if (
+            sortDirection.value === 'asc'
+        ) {
+
+            icon.className =
+                'bi bi-sort-alpha-down sort-icon active';
+
+        } else {
+
+            icon.className =
+                'bi bi-sort-alpha-down-alt sort-icon active';
+
+        }
+
+    }
+
+
+    /* =====================================================
+       REFRESH SORT
+    ===================================================== */
+
+    function refreshSorting() {
+
+        const column =
+            parseInt(
+                sortSelect.value,
+                10
+            );
+
+
+        const direction =
+            sortDirection.value;
+
+
+        sortTable(
+            column,
+            direction
+        );
+
+
+        updateSortIcons();
+
+        applyFilters();
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
+
+    searchInput.addEventListener(
+        'input',
+        function () {
+
+            applyFilters();
+
+        }
+    );
+
+
+    /* =====================================================
+       ENTER KEY
+    ===================================================== */
+
+    searchInput.addEventListener(
+        'keydown',
+        function (event) {
+
+            if (event.key === 'Escape') {
+
+                searchInput.value = '';
+
+                applyFilters();
+
+                searchInput.focus();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLEAR SEARCH
+    ===================================================== */
+
+    if (clearSearch) {
+
+        clearSearch.addEventListener(
+            'click',
+            function () {
+
+                searchInput.value = '';
+
+                applyFilters();
+
+                searchInput.focus();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       STATUS FILTER
+    ===================================================== */
+
+    statusFilter.addEventListener(
+        'change',
+        function () {
+
+            applyFilters();
+
+        }
+    );
+
+
+    /* =====================================================
+       SORT SELECT
+    ===================================================== */
+
+    sortSelect.addEventListener(
+        'change',
+        function () {
+
+            refreshSorting();
+
+        }
+    );
+
+
+    /* =====================================================
+       SORT DIRECTION
+    ===================================================== */
+
+    sortDirection.addEventListener(
+        'change',
+        function () {
+
+            refreshSorting();
+
+        }
+    );
+
+
+    /* =====================================================
+       CLICK TABLE HEADERS
+    ===================================================== */
+
+    table.querySelectorAll(
+        'th[data-sort-column]'
+    ).forEach(
+        function (header) {
+
+            header.addEventListener(
+                'click',
+                function () {
+
+                    const column =
+                        this.getAttribute(
+                            'data-sort-column'
+                        );
+
+
+                    if (
+                        sortSelect.value === column
+                    ) {
+
+                        sortDirection.value =
+                            sortDirection.value === 'asc'
+                                ? 'desc'
+                                : 'asc';
+
+                    } else {
+
+                        sortSelect.value =
+                            column;
+
+                        sortDirection.value =
+                            'asc';
+
+                    }
+
+
+                    refreshSorting();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       RESET FILTERS
+    ===================================================== */
+
+    resetButton.addEventListener(
+        'click',
+        function () {
+
+            searchInput.value = '';
+
+            statusFilter.value = '';
+
+            sortSelect.value = '0';
+
+            sortDirection.value = 'asc';
+
+
+            refreshSorting();
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIAL LOAD
+    ===================================================== */
+
+    refreshSorting();
+
+});
+
+</script>
+
+{% endblock %}

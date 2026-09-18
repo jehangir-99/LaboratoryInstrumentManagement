@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Maintenance - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+ 
+<div>
+    <h2 class="mb-1">Maintenance</h2>
+
+    <p class="text-muted mb-0">
+        Manage instrument maintenance records.
+    </p>
+</div>
+
+<a
+    href="{% url 'maintenance:maintenance_create' %}"
+    class="btn btn-primary"
+>
+    + Add Maintenance
+</a>
+ 
+
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+
+ 
+<div class="card-body">
+
+    <form method="get">
+
+        <div class="row g-2">
+
+            <div class="col-md-7">
+
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ query }}"
+                    class="form-control"
+                    placeholder="Search by instrument, technician, report or parts..."
+                >
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <select
+                    name="maintenance_type"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All Maintenance Types
+                    </option>
+
+                    {% for value, label in maintenance_type_choices %}
+
+                        <option
+                            value="{{ value }}"
+                            {% if selected_maintenance_type == value %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <button
+                    type="submit"
+                    class="btn btn-dark w-100"
+                >
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+ 
+
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+ 
+<h5 class="mb-0">
+    Maintenance Records
+</h5>
+
+<span class="text-muted">
+    {{ maintenances|length }}
+    record{{ maintenances|length|pluralize }}
+</span>
+ 
+
+</div>
+
+<div class="card border-0 shadow-sm">
+
+ 
+<div class="table-responsive">
+
+    <table class="table table-hover align-middle mb-0">
+
+        <thead class="table-light">
+
+            <tr>
+
+                <th>Instrument</th>
+
+                <th>Type</th>
+
+                <th>Intervention Date</th>
+
+                <th>Technician</th>
+
+                <th>Next Maintenance</th>
+
+                <th>Report</th>
+
+                <th class="text-end">
+                    Actions
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for maintenance in maintenances %}
+
+            <tr>
+
+                <td>
+
+                    <div class="fw-semibold">
+                        {{ maintenance.instrument.internal_code }}
+                    </div>
+
+                    <small class="text-muted">
+                        {{ maintenance.instrument.designation }}
+                    </small>
+
+                </td>
+
+
+                <td>
+
+                    {% if maintenance.maintenance_type == 'preventive' %}
+
+                        <span class="badge bg-success">
+                            Preventive
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-warning text-dark">
+                            Corrective
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <td>
+
+                    {{ maintenance.intervention_date|date:"d M Y" }}
+
+                </td>
+
+
+                <td>
+
+                    {{ maintenance.responsible_technician }}
+
+                </td>
+
+
+                <td>
+
+                    {% if maintenance.next_maintenance_date %}
+
+                        {{ maintenance.next_maintenance_date|date:"d M Y" }}
+
+                    {% else %}
+
+                        <span class="text-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <td>
+
+                    {% if maintenance.report_file %}
+
+                        <a
+                            href="{{ maintenance.report_file.url }}"
+                            target="_blank"
+                            class="text-decoration-none"
+                        >
+                            <i class="bi bi-file-earmark-text"></i>
+                            View
+                        </a>
+
+                    {% else %}
+
+                        <span class="text-muted">
+                            —
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+
+                <td class="text-end">
+
+                    <div class="btn-group">
+
+                        <a
+                            href="{% url 'maintenance:maintenance_detail' maintenance.pk %}"
+                            class="btn btn-sm btn-outline-primary"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="{% url 'maintenance:maintenance_update' maintenance.pk %}"
+                            class="btn btn-sm btn-outline-secondary"
+                        >
+                            Edit
+                        </a>
+
+                        <a
+                            href="{% url 'maintenance:maintenance_delete' maintenance.pk %}"
+                            class="btn btn-sm btn-outline-danger"
+                        >
+                            Delete
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            {% empty %}
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="text-center py-5"
+                >
+
+                    <div class="text-muted mb-2">
+                        No maintenance records found.
+                    </div>
+
+                    {% if query or selected_maintenance_type %}
+
+                        <a
+                            href="{% url 'maintenance:maintenance_list' %}"
+                            class="btn btn-sm btn-outline-secondary"
+                        >
+                            Clear Filters
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'maintenance:maintenance_create' %}"
+                            class="btn btn-sm btn-primary"
+                        >
+                            Add First Maintenance Record
+                        </a>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+ 
+
+</div>
+
+{% endblock %}

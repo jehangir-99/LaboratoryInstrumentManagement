@@ -1,0 +1,44 @@
+# Python
+
+venv/
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Django
+
+*.log
+db.sqlite3
+media/
+
+# Environment / secrets
+
+.env
+.env.*
+!.env.example
+
+# IDE / Editor
+
+.vscode/
+.idea/
+
+# OS generated files
+
+.DS_Store
+Thumbs.db
+
+# Python packaging
+
+*.egg-info/
+dist/
+build/
+
+# Coverage / testing
+
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Local development
+
+*.local

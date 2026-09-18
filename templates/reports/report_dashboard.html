@@ -1,0 +1,544 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reports - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="mb-1">
+            Reports
+        </h2>
+
+        <p class="text-muted mb-0">
+            Laboratory management system overview and statistics
+        </p>
+    </div>
+
+    <button
+        onclick="window.print()"
+        class="btn btn-outline-secondary"
+    >
+        <i class="bi bi-printer me-1"></i>
+        Print Report
+    </button>
+
+</div>
+
+
+<!-- General Statistics -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+
+                <p class="text-muted mb-1">
+                    Total Instruments
+                </p>
+
+                <h2 class="mb-0">
+                    {{ total_instruments }}
+                </h2>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+
+                <p class="text-muted mb-1">
+                    Suppliers
+                </p>
+
+                <h2 class="mb-0">
+                    {{ total_suppliers }}
+                </h2>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+
+                <p class="text-muted mb-1">
+                    Locations
+                </p>
+
+                <h2 class="mb-0">
+                    {{ total_locations }}
+                </h2>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+
+                <p class="text-muted mb-1">
+                    Maintenance Records
+                </p>
+
+                <h2 class="mb-0">
+                    {{ total_maintenance }}
+                </h2>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Instrument Status -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <h5 class="mb-3">
+            Instrument Status
+        </h5>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        In Service
+                    </div>
+
+                    <h3 class="mb-0 text-success">
+                        {{ in_service }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        In Maintenance
+                    </div>
+
+                    <h3 class="mb-0 text-warning">
+                        {{ in_maintenance }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Out of Service
+                    </div>
+
+                    <h3 class="mb-0 text-danger">
+                        {{ out_of_service }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Calibration -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <h5 class="mb-3">
+            Calibration Summary
+        </h5>
+
+        <div class="row g-3">
+
+            <div class="col-md-3">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Total
+                    </div>
+
+                    <h3 class="mb-0">
+                        {{ total_calibrations }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Scheduled
+                    </div>
+
+                    <h3 class="mb-0 text-primary">
+                        {{ scheduled_calibrations }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Completed
+                    </div>
+
+                    <h3 class="mb-0 text-success">
+                        {{ completed_calibrations }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Overdue
+                    </div>
+
+                    <h3 class="mb-0 text-danger">
+                        {{ overdue_calibrations }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Maintenance -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <h5 class="mb-3">
+            Maintenance Summary
+        </h5>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Total
+                    </div>
+
+                    <h3 class="mb-0">
+                        {{ total_maintenance }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Preventive
+                    </div>
+
+                    <h3 class="mb-0 text-primary">
+                        {{ preventive_maintenance }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3">
+
+                    <div class="text-muted">
+                        Corrective
+                    </div>
+
+                    <h3 class="mb-0 text-warning">
+                        {{ corrective_maintenance }}
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Upcoming Calibrations -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h5 class="mb-0">
+                Upcoming Calibrations
+            </h5>
+
+            <a
+                href="{% url 'calibrations:calibration_list' %}"
+                class="btn btn-sm btn-outline-secondary"
+            >
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Instrument</th>
+                        <th>Calibration Date</th>
+                        <th>Next Calibration</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for calibration in upcoming_calibrations %}
+
+                    <tr>
+
+                        <td>
+                            {{ calibration.instrument.internal_code }}
+                        </td>
+
+                        <td>
+                            {{ calibration.calibration_date }}
+                        </td>
+
+                        <td>
+                            {{ calibration.next_calibration_date|default:"—" }}
+                        </td>
+
+                        <td>
+
+                            {% if calibration.status == 'completed' %}
+                                <span class="badge bg-success">
+                                    Completed
+                                </span>
+
+                            {% elif calibration.status == 'overdue' %}
+                                <span class="badge bg-danger">
+                                    Overdue
+                                </span>
+
+                            {% elif calibration.status == 'failed' %}
+                                <span class="badge bg-danger">
+                                    Failed
+                                </span>
+
+                            {% else %}
+                                <span class="badge bg-primary">
+                                    Scheduled
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td
+                            colspan="4"
+                            class="text-center text-muted py-4"
+                        >
+                            No upcoming calibrations.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Maintenance -->
+
+<div class="card border-0 shadow-sm">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h5 class="mb-0">
+                Recent Maintenance
+            </h5>
+
+            <a
+                href="{% url 'maintenance:maintenance_list' %}"
+                class="btn btn-sm btn-outline-secondary"
+            >
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Instrument</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Technician</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for maintenance in recent_maintenance %}
+
+                    <tr>
+
+                        <td>
+                            {{ maintenance.instrument.internal_code }}
+                        </td>
+
+                        <td>
+                            {{ maintenance.get_maintenance_type_display }}
+                        </td>
+
+                        <td>
+                            {{ maintenance.intervention_date }}
+                        </td>
+
+                        <td>
+                            {{ maintenance.responsible_technician }}
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td
+                            colspan="4"
+                            class="text-center text-muted py-4"
+                        >
+                            No maintenance records available.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+@media print {
+
+    nav,
+    .btn,
+    footer {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}

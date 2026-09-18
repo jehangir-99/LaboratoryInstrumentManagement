@@ -1,0 +1,359 @@
+```html
+{% extends 'base.html' %}
+
+{% block title %}
+{{ supplier.name }} - Laboratory Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="mb-1">{{ supplier.name }}</h2>
+
+        <p class="text-muted mb-0">
+            Supplier details and associated instruments.
+        </p>
+    </div>
+
+    <div class="d-flex gap-2">
+
+        <a
+            href="{% url 'suppliers:supplier_update' supplier.pk %}"
+            class="btn btn-primary"
+        >
+            Edit
+        </a>
+
+        <a
+            href="{% url 'suppliers:supplier_delete' supplier.pk %}"
+            class="btn btn-outline-danger"
+        >
+            Delete
+        </a>
+
+        <a
+            href="{% url 'suppliers:supplier_list' %}"
+            class="btn btn-outline-secondary"
+        >
+            Back
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- Supplier Information -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+            Supplier Information
+        </h5>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="row g-4">
+
+
+            <div class="col-md-6">
+
+                <label class="text-muted small">
+                    Supplier Name
+                </label>
+
+                <div class="fw-semibold">
+                    {{ supplier.name }}
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="text-muted small">
+                    Contact Person
+                </label>
+
+                <div>
+                    {% if supplier.contact_person %}
+                        {{ supplier.contact_person }}
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="text-muted small">
+                    Phone
+                </label>
+
+                <div>
+                    {% if supplier.phone %}
+                        {{ supplier.phone }}
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="text-muted small">
+                    Email
+                </label>
+
+                <div>
+
+                    {% if supplier.email %}
+
+                        <a href="mailto:{{ supplier.email }}">
+                            {{ supplier.email }}
+                        </a>
+
+                    {% else %}
+
+                        <span class="text-muted">—</span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="text-muted small">
+                    Website
+                </label>
+
+                <div>
+
+                    {% if supplier.website %}
+
+                        <a
+                            href="{{ supplier.website }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {{ supplier.website }}
+                        </a>
+
+                    {% else %}
+
+                        <span class="text-muted">—</span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <label class="text-muted small">
+                    Created
+                </label>
+
+                <div>
+                    {{ supplier.created_at|date:"d M Y, H:i" }}
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12">
+
+                <label class="text-muted small">
+                    Address
+                </label>
+
+                <div>
+
+                    {% if supplier.address %}
+                        {{ supplier.address|linebreaksbr }}
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12">
+
+                <label class="text-muted small">
+                    Notes
+                </label>
+
+                <div>
+
+                    {% if supplier.notes %}
+                        {{ supplier.notes|linebreaksbr }}
+                    {% else %}
+                        <span class="text-muted">—</span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Associated Instruments -->
+
+<div class="card border-0 shadow-sm">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+        <h5 class="mb-0">
+            Associated Instruments
+        </h5>
+
+        <span class="badge bg-primary">
+            {{ instruments|length }}
+        </span>
+
+    </div>
+
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th>Internal Code</th>
+
+                    <th>Designation</th>
+
+                    <th>Brand</th>
+
+                    <th>Model</th>
+
+                    <th>Status</th>
+
+                    <th class="text-end">
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for instrument in instruments %}
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            {{ instrument.internal_code }}
+                        </strong>
+                    </td>
+
+                    <td>
+                        {{ instrument.designation }}
+                    </td>
+
+                    <td>
+                        {{ instrument.brand|default:"—" }}
+                    </td>
+
+                    <td>
+                        {{ instrument.model|default:"—" }}
+                    </td>
+
+                    <td>
+
+                        {% if instrument.status == 'in_service' %}
+
+                            <span class="badge bg-success">
+                                In Service
+                            </span>
+
+                        {% elif instrument.status == 'maintenance' %}
+
+                            <span class="badge bg-warning text-dark">
+                                In Maintenance
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Out of Service
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td class="text-end">
+
+                        <a
+                            href="{% url 'instruments:instrument_detail' instrument.pk %}"
+                            class="btn btn-sm btn-outline-primary"
+                        >
+                            View
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="text-center py-5"
+                    >
+
+                        <div class="text-muted">
+                            No instruments are currently associated
+                            with this supplier.
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
+```
